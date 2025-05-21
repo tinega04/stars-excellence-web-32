@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { Menu, X, Phone, Mail, MapPin, Calendar, Instagram, Facebook, Twitter, ChevronRight } from "lucide-react";
+import { Menu, X, Phone, Mail, MapPin, Calendar, Instagram, Facebook, TikTok, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
 // Helper Components
@@ -400,8 +400,8 @@ const Index = () => {
                 <div className="flex items-start">
                   <MapPin size={20} className="mr-2 mt-1 flex-shrink-0" />
                   <div>
-                    <p>Nairobi Campus: Sample Address, Nairobi</p>
-                    <p>Kitengela Campus: Sample Address, Kitengela</p>
+                    <p>Nairobi Campus: Imara Daima</p>
+                    <p>Kitengela Campus: Airview</p>
                   </div>
                 </div>
               </div>
@@ -428,7 +428,7 @@ const Index = () => {
                   <Facebook size={20} />
                 </a>
                 <a href="#" className="bg-blue-800 hover:bg-blue-700 p-2 rounded-full transition duration-300">
-                  <Twitter size={20} />
+                  <TikTok size={20} />
                 </a>
                 <a href="#" className="bg-blue-800 hover:bg-blue-700 p-2 rounded-full transition duration-300">
                   <Instagram size={20} />

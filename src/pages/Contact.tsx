@@ -85,8 +85,8 @@ const Contact = () => {
                 <MapPin className="mr-3 text-blue-600 h-5 w-5 mt-1" />
                 <div>
                   <h3 className="font-medium text-gray-900">Address</h3>
-                  <p className="text-gray-600">Nairobi Campus: Sample Address, Nairobi</p>
-                  <p className="text-gray-600">Kitengela Campus: Sample Address, Kitengela</p>
+                  <p className="text-gray-600">Nairobi Campus: Imara Daima</p>
+                  <p className="text-gray-600">Kitengela Campus: Airview</p>
                 </div>
               </div>
             </CardContent>

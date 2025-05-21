@@ -48,12 +48,12 @@ const Campuses = () => {
                     </div>
                     <CardHeader>
                       <CardTitle className="text-2xl font-serif text-blue-800">Nairobi Campus</CardTitle>
-                      <CardDescription>Our main campus located in the heart of Nairobi</CardDescription>
+                      <CardDescription>Our main campus located in Imara Daima</CardDescription>
                     </CardHeader>
                     <CardContent>
                       <div className="prose">
                         <p>
-                          Located in the heart of Nairobi, our main campus offers modern facilities and a conducive learning 
+                          Located in Imara Daima, our main campus offers modern facilities and a conducive learning 
                           environment for students. The campus features spacious classrooms, state-of-the-art laboratories,
                           a well-stocked library, and excellent sporting facilities.
                         </p>
@@ -83,7 +83,7 @@ const Campuses = () => {
                     <CardContent className="space-y-4">
                       <div className="flex items-center">
                         <MapPin className="h-5 w-5 mr-2 text-blue-600" />
-                        <span>Sample Address, Nairobi</span>
+                        <span>Imara Daima, Nairobi</span>
                       </div>
                       <div className="flex items-center">
                         <Phone className="h-5 w-5 mr-2 text-blue-600" />
@@ -128,12 +128,12 @@ const Campuses = () => {
                     </div>
                     <CardHeader>
                       <CardTitle className="text-2xl font-serif text-blue-800">Kitengela Campus</CardTitle>
-                      <CardDescription>Our spacious campus in Kitengela</CardDescription>
+                      <CardDescription>Our spacious campus in Airview</CardDescription>
                     </CardHeader>
                     <CardContent>
                       <div className="prose">
                         <p>
-                          Our Kitengela campus provides a spacious and serene environment for learning, with state-of-the-art 
+                          Our Airview campus in Kitengela provides a spacious and serene environment for learning, with state-of-the-art 
                           facilities. The campus is set on expansive grounds, offering ample space for both academic and 
                           recreational activities.
                         </p>
@@ -164,7 +164,7 @@ const Campuses = () => {
                     <CardContent className="space-y-4">
                       <div className="flex items-center">
                         <MapPin className="h-5 w-5 mr-2 text-blue-600" />
-                        <span>Sample Address, Kitengela</span>
+                        <span>Airview, Kitengela</span>
                       </div>
                       <div className="flex items-center">
                         <Phone className="h-5 w-5 mr-2 text-blue-600" />
