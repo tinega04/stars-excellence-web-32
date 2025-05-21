@@ -1,6 +1,5 @@
-
 import { useState } from "react";
-import { Menu, X, Phone, Mail, MapPin, Calendar, Instagram, Facebook, TikTok, ChevronRight } from "lucide-react";
+import { Menu, X, Phone, Mail, MapPin, Calendar, Instagram, Facebook, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
 // Helper Components
@@ -225,7 +224,7 @@ const Index = () => {
               <div className="flex flex-col items-center text-center">
                 <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
                   <img 
-                    src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=64&h=64" 
+                    src="https://images.unsplash.com/photo-1469474038136-46273834b3fb?auto=format&fit=crop&w=64&h=64" 
                     alt="CBC icon" 
                     className="w-8 h-8 object-contain"
                   />
@@ -270,7 +269,7 @@ const Index = () => {
               <div className="flex flex-col items-center text-center">
                 <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
                   <img 
-                    src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=64&h=64" 
+                    src="https://images.unsplash.com/photo-1506744038136-46273f02e42e?auto=format&fit=crop&w=64&h=64" 
                     alt="Activities icon" 
                     className="w-8 h-8 object-contain"
                   />
@@ -428,7 +427,13 @@ const Index = () => {
                   <Facebook size={20} />
                 </a>
                 <a href="#" className="bg-blue-800 hover:bg-blue-700 p-2 rounded-full transition duration-300">
-                  <TikTok size={20} />
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M9 12a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"></path>
+                    <path d="M16 8v8"></path>
+                    <path d="M12 16v-8"></path>
+                    <path d="M20 12V8h-4"></path>
+                    <path d="M16 12a4 4 0 0 0 4 4"></path>
+                  </svg>
                 </a>
                 <a href="#" className="bg-blue-800 hover:bg-blue-700 p-2 rounded-full transition duration-300">
                   <Instagram size={20} />
