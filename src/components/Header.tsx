@@ -28,14 +28,14 @@ const Header = () => {
   const navItems = [
     { name: "Home", path: "/" },
     { name: "About Us", path: "/about" },
-    { name: "Curriculum", path: "/academics" }, // Renamed from "Academics" to "Curriculum" as requested
-    { name: "Facilities", path: "/campuses" }, // Renamed from "Campuses" to "Facilities" as requested
+    { name: "Curriculum", path: "/academics" },
+    { name: "Facilities", path: "/campuses" },
     { name: "Admissions", path: "/admissions" },
     { name: "Contact", path: "/contact" },
   ];
   
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white elegant-shadow py-3' : 'bg-white/90 backdrop-blur-sm py-5'}`}>
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white elegant-shadow py-3' : 'bg-white/95 backdrop-blur-sm py-5'}`}>
       <div className="container mx-auto px-4">
         <nav className="flex items-center justify-between">
           {/* Logo */}
@@ -45,7 +45,7 @@ const Header = () => {
             </div>
             <div className="hidden md:block ml-3">
               <h1 className="font-playfair text-xl font-bold text-darkBlue">Stevens Integrated Schools</h1>
-              <p className="text-xs italic text-textGray">Stars of Excellence</p>
+              <p className="text-xs italic text-accentBlue">Stars of Excellence</p>
             </div>
           </Link>
 
@@ -89,7 +89,7 @@ const Header = () => {
 
       {/* Mobile Navigation */}
       {isMenuOpen && (
-        <div className="md:hidden bg-white border-t border-softGray-200 animate-fade-in">
+        <div className="md:hidden bg-white border-t border-border animate-fade-in">
           <div className="container mx-auto px-4 py-4">
             <div className="flex flex-col space-y-3">
               {navItems.map((item) => (
