@@ -1,453 +1,480 @@
-import { useState } from "react";
-import { Menu, X, Phone, Mail, MapPin, Calendar, Instagram, Facebook, ChevronRight } from "lucide-react";
+
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import { 
+  ChevronRight, 
+  CalendarIcon, 
+  ArrowRight
+} from "lucide-react";
+import { Helmet } from "react-helmet-async";
+import { 
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext
+} from "@/components/ui/carousel";
 
-// Helper Components
-function NavLink({ href, active, children }: { href: string; active?: boolean; children: React.ReactNode }) {
-  return (
-    <Link 
-      to={href} 
-      className={`font-medium transition duration-300 ${
-        active ? 'text-blue-700' : 'text-gray-600 hover:text-blue-700'
-      }`}
-    >
-      {children}
-    </Link>
-  );
-}
-
-function MobileNavLink({ href, active, children }: { href: string; active?: boolean; children: React.ReactNode }) {
-  return (
-    <Link
-      to={href} 
-      className={`block py-2 transition duration-300 ${
-        active ? 'text-blue-700 font-medium' : 'text-gray-600 hover:text-blue-700'
-      }`}
-    >
-      {children}
-    </Link>
-  );
-}
-
-// Main App Component
 const Index = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeSlide, setActiveSlide] = useState(0);
+  const slidesRef = useRef<HTMLDivElement>(null);
+  
+  // Hero slider configuration
+  const slides = [
+    {
+      image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&w=1600&h=900",
+      title: "Nurturing Tomorrow's Leaders",
+      subtitle: "Providing holistic, quality education that transforms families and communities.",
+      cta: "Discover Our Approach"
+    },
+    {
+      image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1600&h=900",
+      title: "Excellence in Education",
+      subtitle: "Our CBC-aligned curriculum ensures comprehensive development.",
+      cta: "Explore Academics"
+    },
+    {
+      image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=1600&h=900",
+      title: "Modern Learning Facilities",
+      subtitle: "Experience our state-of-the-art campuses in Nairobi and Kitengela.",
+      cta: "View Our Campuses"
+    }
+  ];
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveSlide((prev) => (prev + 1) % slides.length);
+    }, 6000);
+    return () => clearInterval(interval);
+  }, []);
+  
+  useEffect(() => {
+    if (slidesRef.current) {
+      const slideWidth = slidesRef.current.offsetWidth;
+      slidesRef.current.style.transform = `translateX(-${activeSlide * slideWidth}px)`;
+    }
+  }, [activeSlide]);
+  
+  const setSlide = (index: number) => {
+    setActiveSlide(index);
+  };
 
   return (
-    <div className="min-h-screen flex flex-col">
-      {/* Header/Navigation */}
-      <header className="bg-white shadow-md">
-        <div className="container mx-auto px-4 py-3">
-          <nav className="flex items-center justify-between">
-            {/* Logo */}
-            <div className="flex items-center">
-              <div className="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center text-white mr-3">
-                <span className="font-serif font-bold text-xl">SIS</span>
-              </div>
-              <div className="hidden md:block">
-                <h1 className="font-serif text-xl font-bold text-blue-700">Stevens Integrated Schools</h1>
-                <p className="text-xs italic text-gray-600">Stars of Excellence</p>
-              </div>
-            </div>
+    <div className="min-h-screen">
+      <Helmet>
+        <title>Stevens Integrated Schools | Stars of Excellence</title>
+        <meta name="description" content="Stevens Integrated Schools is a leading education institution providing holistic, quality education that transforms families and communities." />
+        <meta name="keywords" content="Stevens Integrated Schools, education Kenya, CBC curriculum, private schools Nairobi" />
+        <link rel="canonical" href="https://stevensschools.com" />
+      </Helmet>
 
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex space-x-6">
-              <NavLink href="/" active>Home</NavLink>
-              <NavLink href="/about">About Us</NavLink>
-              <NavLink href="/academics">Academics</NavLink>
-              <NavLink href="/campuses">Campuses</NavLink>
-              <NavLink href="/admissions">Admissions</NavLink>
-              <NavLink href="/contact">Contact</NavLink>
-            </div>
-
-            {/* Mobile Menu Button */}
-            <button 
-              className="md:hidden text-blue-700" 
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
+      {/* Hero Section with Slider */}
+      <section className="relative h-screen-90 bg-navy overflow-hidden">
+        <div className="absolute inset-0 z-10">
+          <div className="relative h-full w-full overflow-hidden">
+            <div 
+              ref={slidesRef}
+              className="flex h-full transition-transform duration-1000 ease-in-out"
+              style={{ width: `${slides.length * 100}%` }}
             >
-              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </nav>
+              {slides.map((slide, index) => (
+                <div 
+                  key={index} 
+                  className="relative h-full"
+                  style={{ width: `${100 / slides.length}%` }}
+                >
+                  <div className="absolute inset-0 bg-navy/60 z-10"></div>
+                  <img 
+                    src={slide.image}
+                    alt={slide.title}
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 flex flex-col justify-center items-center text-white z-20 px-4">
+                    <h1 className="font-playfair text-4xl md:text-5xl lg:text-6xl font-bold text-center mb-4 animate-fade-in">
+                      {slide.title}
+                    </h1>
+                    <p className="text-xl md:text-2xl text-center mb-8 max-w-2xl animate-fade-in opacity-90">
+                      {slide.subtitle}
+                    </p>
+                    <Link 
+                      to="/about" 
+                      className="btn-gold flex items-center gap-2 animate-fade-in-delayed opacity-0"
+                    >
+                      {slide.cta}
+                      <ArrowRight size={16} />
+                    </Link>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
-
-        {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <div className="md:hidden bg-white border-t border-gray-200 py-2">
-            <div className="container mx-auto px-4">
-              <div className="flex flex-col space-y-3">
-                <MobileNavLink href="/" active>Home</MobileNavLink>
-                <MobileNavLink href="/about">About Us</MobileNavLink>
-                <MobileNavLink href="/academics">Academics</MobileNavLink>
-                <MobileNavLink href="/campuses">Campuses</MobileNavLink>
-                <MobileNavLink href="/admissions">Admissions</MobileNavLink>
-                <MobileNavLink href="/contact">Contact</MobileNavLink>
-              </div>
-            </div>
+        
+        {/* Slider Controls */}
+        <div className="absolute bottom-10 left-0 right-0 z-20 flex justify-center">
+          <div className="flex space-x-2">
+            {slides.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setSlide(index)}
+                className={`w-3 h-3 rounded-full transition-all ${
+                  activeSlide === index 
+                    ? 'bg-gold w-8' 
+                    : 'bg-white/50 hover:bg-white'
+                }`}
+                aria-label={`Go to slide ${index + 1}`}
+              ></button>
+            ))}
           </div>
-        )}
-      </header>
+        </div>
+      </section>
 
-      <main className="flex-grow">
-        {/* Hero Section */}
-        <section className="relative h-96 md:h-[500px] bg-blue-50 overflow-hidden">
-          <div className="absolute inset-0 opacity-20">
-            <img 
-              src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&w=1600&h=900" 
-              alt="School campus" 
-              className="object-cover w-full h-full"
-            />
-          </div>
-          <div className="relative container mx-auto px-4 h-full flex flex-col justify-center items-center text-center">
-            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-blue-800 mb-4">
-              Welcome to Stevens Integrated Schools
-            </h1>
-            <p className="text-xl md:text-2xl text-blue-600 italic mb-8">Stars of Excellence</p>
-            <button className="bg-blue-700 hover:bg-blue-800 text-white font-bold py-3 px-8 rounded-md shadow-lg transition duration-300">
-              Enroll Now
-            </button>
-          </div>
-        </section>
-
-        {/* Campuses Section */}
-        <section className="py-16 bg-white">
-          <div className="container mx-auto px-4">
-            <h2 className="font-serif text-3xl font-bold text-center text-blue-800 mb-12">Our Campuses</h2>
-            
-            <div className="grid md:grid-cols-2 gap-8">
-              {/* Nairobi Campus */}
-              <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-                <div className="h-64 overflow-hidden">
-                  <img 
-                    src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&h=500" 
-                    alt="Nairobi Campus" 
-                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                  />
-                </div>
-                <div className="p-6">
-                  <h3 className="font-serif text-2xl font-bold text-blue-700 mb-2">Nairobi Campus</h3>
-                  <p className="text-gray-600 mb-4">
-                    Located in the heart of Nairobi, our main campus offers modern facilities and a conducive learning environment for students.
-                  </p>
-                  <button className="flex items-center text-blue-600 font-semibold hover:text-blue-800 transition duration-300">
-                    Learn More <ChevronRight size={16} className="ml-1" />
-                  </button>
-                </div>
-              </div>
-              
-              {/* Kitengela Campus */}
-              <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-                <div className="h-64 overflow-hidden">
-                  <img 
-                    src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=800&h=500" 
-                    alt="Kitengela Campus" 
-                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                  />
-                </div>
-                <div className="p-6">
-                  <h3 className="font-serif text-2xl font-bold text-blue-700 mb-2">Kitengela Campus</h3>
-                  <p className="text-gray-600 mb-4">
-                    Our Kitengela campus provides a spacious and serene environment for learning, with state-of-the-art facilities.
-                  </p>
-                  <button className="flex items-center text-blue-600 font-semibold hover:text-blue-800 transition duration-300">
-                    Learn More <ChevronRight size={16} className="ml-1" />
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* CBC Curriculum Section */}
-        <section className="py-16 bg-blue-50">
-          <div className="container mx-auto px-4">
-            <h2 className="font-serif text-3xl font-bold text-center text-blue-800 mb-6">CBC Curriculum</h2>
-            <p className="text-center text-gray-600 max-w-3xl mx-auto mb-12">
-              We follow the Competency-Based Curriculum (CBC) that focuses on developing skills, knowledge, and attitudes for holistic growth of your child.
+      {/* Campuses Section */}
+      <section className="section-padding bg-white">
+        <div className="container">
+          <div className="text-center mb-12">
+            <h2 className="section-title mx-auto after:left-0 after:right-0 after:mx-auto">Our Campuses</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Experience excellence in education at our two state-of-the-art campuses, 
+              each offering a unique learning environment designed to inspire growth and achievement.
             </p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Nairobi Campus */}
+            <div className="group card-premium">
+              <div className="h-64 overflow-hidden">
+                <img 
+                  src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&h=500" 
+                  alt="Nairobi Campus" 
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+              </div>
+              <div className="p-6">
+                <h3 className="font-playfair text-2xl text-navy mb-2">Nairobi Campus</h3>
+                <p className="text-gray-600 mb-4 leading-relaxed">
+                  Located in the heart of Nairobi, our main campus offers modern facilities and a conducive learning environment for students.
+                </p>
+                <Link to="/campuses" className="flex items-center text-gold font-medium hover:text-gold-600 transition duration-300 group">
+                  Learn More <ChevronRight size={16} className="ml-1 transition-transform group-hover:translate-x-1" />
+                </Link>
+              </div>
+            </div>
             
-            <div className="grid md:grid-cols-3 gap-8">
-              {/* Kindergarten */}
-              <div className="bg-white rounded-lg p-6 shadow-md text-center">
-                <div className="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <img 
-                    src="https://images.unsplash.com/photo-1605810230434-7631ac76ec81?auto=format&fit=crop&w=80&h=80" 
-                    alt="Kindergarten icon" 
-                    className="w-12 h-12 object-contain"
-                  />
-                </div>
-                <h3 className="font-serif text-xl font-bold text-blue-700 mb-2">Kindergarten</h3>
-                <p className="text-gray-600">
-                  Our kindergarten program focuses on early development through play-based learning and foundational skills.
-                </p>
+            {/* Kitengela Campus */}
+            <div className="group card-premium">
+              <div className="h-64 overflow-hidden">
+                <img 
+                  src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=800&h=500" 
+                  alt="Kitengela Campus" 
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
               </div>
-              
-              {/* Lower Primary */}
-              <div className="bg-white rounded-lg p-6 shadow-md text-center">
-                <div className="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <img 
-                    src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=80&h=80" 
-                    alt="Primary icon" 
-                    className="w-12 h-12 object-contain"
-                  />
-                </div>
-                <h3 className="font-serif text-xl font-bold text-blue-700 mb-2">Primary</h3>
-                <p className="text-gray-600">
-                  Building on the foundation, primary education focuses on literacy, numeracy, and core competencies.
+              <div className="p-6">
+                <h3 className="font-playfair text-2xl text-navy mb-2">Kitengela Campus</h3>
+                <p className="text-gray-600 mb-4 leading-relaxed">
+                  Our Kitengela campus provides a spacious and serene environment for learning, with state-of-the-art facilities.
                 </p>
-              </div>
-              
-              {/* Junior School */}
-              <div className="bg-white rounded-lg p-6 shadow-md text-center">
-                <div className="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <img 
-                    src="https://images.unsplash.com/photo-1501854140801-50d01698950b?auto=format&fit=crop&w=80&h=80" 
-                    alt="Junior School icon" 
-                    className="w-12 h-12 object-contain"
-                  />
-                </div>
-                <h3 className="font-serif text-xl font-bold text-blue-700 mb-2">Junior School</h3>
-                <p className="text-gray-600">
-                  Junior school expands knowledge while developing critical thinking, creativity, and practical skills.
-                </p>
+                <Link to="/campuses" className="flex items-center text-gold font-medium hover:text-gold-600 transition duration-300 group">
+                  Learn More <ChevronRight size={16} className="ml-1 transition-transform group-hover:translate-x-1" />
+                </Link>
               </div>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Why Choose Us Section */}
-        <section className="py-16 bg-white">
-          <div className="container mx-auto px-4">
-            <h2 className="font-serif text-3xl font-bold text-center text-blue-800 mb-12">Why Choose Us</h2>
+      {/* CBC Curriculum Section */}
+      <section className="section-padding bg-navy/5">
+        <div className="container">
+          <div className="text-center mb-12">
+            <h2 className="section-title mx-auto after:left-0 after:right-0 after:mx-auto">CBC Curriculum</h2>
+            <p className="text-gray-600 max-w-3xl mx-auto">
+              We follow the Competency-Based Curriculum (CBC) that focuses on developing skills, knowledge, 
+              and attitudes for holistic growth of your child.
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-3 gap-8">
+            {/* Kindergarten */}
+            <div className="bg-white rounded-lg p-8 shadow-md text-center hover:shadow-lg transition-shadow duration-300">
+              <div className="w-20 h-20 bg-gold/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                <img 
+                  src="https://images.unsplash.com/photo-1605810230434-7631ac76ec81?auto=format&fit=crop&w=80&h=80" 
+                  alt="Kindergarten icon" 
+                  className="w-12 h-12 object-contain"
+                />
+              </div>
+              <h3 className="font-playfair text-xl text-navy mb-4">Kindergarten</h3>
+              <p className="text-gray-600 mb-6 leading-relaxed">
+                Our kindergarten program focuses on early development through play-based learning and foundational skills.
+              </p>
+              <div className="inline-block w-12 h-0.5 bg-gold"></div>
+            </div>
+            
+            {/* Lower Primary */}
+            <div className="bg-white rounded-lg p-8 shadow-md text-center hover:shadow-lg transition-shadow duration-300">
+              <div className="w-20 h-20 bg-gold/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                <img 
+                  src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=80&h=80" 
+                  alt="Primary icon" 
+                  className="w-12 h-12 object-contain"
+                />
+              </div>
+              <h3 className="font-playfair text-xl text-navy mb-4">Primary</h3>
+              <p className="text-gray-600 mb-6 leading-relaxed">
+                Building on the foundation, primary education focuses on literacy, numeracy, and core competencies.
+              </p>
+              <div className="inline-block w-12 h-0.5 bg-gold"></div>
+            </div>
+            
+            {/* Junior School */}
+            <div className="bg-white rounded-lg p-8 shadow-md text-center hover:shadow-lg transition-shadow duration-300">
+              <div className="w-20 h-20 bg-gold/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                <img 
+                  src="https://images.unsplash.com/photo-1501854140801-50d01698950b?auto=format&fit=crop&w=80&h=80" 
+                  alt="Junior School icon" 
+                  className="w-12 h-12 object-contain"
+                />
+              </div>
+              <h3 className="font-playfair text-xl text-navy mb-4">Junior School</h3>
+              <p className="text-gray-600 mb-6 leading-relaxed">
+                Junior school expands knowledge while developing critical thinking, creativity, and practical skills.
+              </p>
+              <div className="inline-block w-12 h-0.5 bg-gold"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Why Choose Us Section */}
+      <section className="section-padding bg-white relative">
+        <div className="absolute top-0 left-0 right-0 h-1/2 bg-navy/5 z-0"></div>
+        <div className="container relative z-10">
+          <div className="bg-white p-8 md:p-12 rounded-lg shadow-lg">
+            <div className="text-center mb-12">
+              <h2 className="section-title mx-auto after:left-0 after:right-0 after:mx-auto">Why Choose Us</h2>
+              <p className="text-gray-600 max-w-3xl mx-auto">
+                Stevens Integrated Schools offers a comprehensive educational experience designed 
+                to nurture well-rounded individuals ready for the future.
+              </p>
+            </div>
             
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
               {/* CBC-aligned */}
-              <div className="flex flex-col items-center text-center">
-                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+              <div className="flex flex-col items-center text-center group">
+                <div className="w-16 h-16 bg-gold/10 rounded-full flex items-center justify-center mb-4 group-hover:bg-gold/20 transition-colors duration-300">
                   <img 
                     src="https://images.unsplash.com/photo-1469474038136-46273834b3fb?auto=format&fit=crop&w=64&h=64" 
                     alt="CBC icon" 
                     className="w-8 h-8 object-contain"
                   />
                 </div>
-                <h3 className="font-serif text-lg font-bold text-blue-700 mb-2">CBC-Aligned</h3>
-                <p className="text-gray-600">
+                <h3 className="font-playfair text-lg text-navy mb-3">CBC-Aligned</h3>
+                <p className="text-gray-600 leading-relaxed">
                   Our curriculum is fully aligned with CBC requirements, ensuring your child's education meets national standards.
                 </p>
               </div>
               
               {/* Safe Environment */}
-              <div className="flex flex-col items-center text-center">
-                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+              <div className="flex flex-col items-center text-center group">
+                <div className="w-16 h-16 bg-gold/10 rounded-full flex items-center justify-center mb-4 group-hover:bg-gold/20 transition-colors duration-300">
                   <img 
                     src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=64&h=64" 
                     alt="Safety icon" 
                     className="w-8 h-8 object-contain"
                   />
                 </div>
-                <h3 className="font-serif text-lg font-bold text-blue-700 mb-2">Safe Environment</h3>
-                <p className="text-gray-600">
+                <h3 className="font-playfair text-lg text-navy mb-3">Safe Environment</h3>
+                <p className="text-gray-600 leading-relaxed">
                   We prioritize student safety with secure facilities and vigilant staff supervision.
                 </p>
               </div>
               
               {/* Qualified Staff */}
-              <div className="flex flex-col items-center text-center">
-                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+              <div className="flex flex-col items-center text-center group">
+                <div className="w-16 h-16 bg-gold/10 rounded-full flex items-center justify-center mb-4 group-hover:bg-gold/20 transition-colors duration-300">
                   <img 
                     src="https://images.unsplash.com/photo-1523712999610-f77fbcfc3843?auto=format&fit=crop&w=64&h=64" 
                     alt="Staff icon" 
                     className="w-8 h-8 object-contain"
                   />
                 </div>
-                <h3 className="font-serif text-lg font-bold text-blue-700 mb-2">Qualified Staff</h3>
-                <p className="text-gray-600">
+                <h3 className="font-playfair text-lg text-navy mb-3">Qualified Staff</h3>
+                <p className="text-gray-600 leading-relaxed">
                   Our teachers are experienced, certified, and committed to educational excellence.
                 </p>
               </div>
               
               {/* Co-curricular Activities */}
-              <div className="flex flex-col items-center text-center">
-                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+              <div className="flex flex-col items-center text-center group">
+                <div className="w-16 h-16 bg-gold/10 rounded-full flex items-center justify-center mb-4 group-hover:bg-gold/20 transition-colors duration-300">
                   <img 
                     src="https://images.unsplash.com/photo-1506744038136-46273f02e42e?auto=format&fit=crop&w=64&h=64" 
                     alt="Activities icon" 
                     className="w-8 h-8 object-contain"
                   />
                 </div>
-                <h3 className="font-serif text-lg font-bold text-blue-700 mb-2">Co-curricular Activities</h3>
-                <p className="text-gray-600">
+                <h3 className="font-playfair text-lg text-navy mb-3">Co-curricular Activities</h3>
+                <p className="text-gray-600 leading-relaxed">
                   We offer diverse activities to develop talents and skills beyond academics.
                 </p>
               </div>
             </div>
           </div>
-        </section>
-
-        {/* News & Events Section */}
-        <section className="py-16 bg-blue-50">
-          <div className="container mx-auto px-4">
-            <h2 className="font-serif text-3xl font-bold text-center text-blue-800 mb-12">News & Events</h2>
-            
-            <div className="grid md:grid-cols-3 gap-8">
-              {/* News Item 1 */}
-              <div className="bg-white rounded-lg shadow-md overflow-hidden">
-                <div className="h-48 overflow-hidden">
-                  <img 
-                    src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=600&h=400" 
-                    alt="News event" 
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="p-6">
-                  <div className="flex items-center text-sm text-gray-500 mb-2">
-                    <Calendar size={16} className="mr-1" />
-                    <span>May 15, 2025</span>
-                  </div>
-                  <h3 className="font-serif text-xl font-bold text-blue-700 mb-2">Annual Sports Day</h3>
-                  <p className="text-gray-600 mb-4">
-                    Join us for our annual sports day celebration featuring competitions and performances from all grade levels.
-                  </p>
-                  <button className="flex items-center text-blue-600 font-semibold hover:text-blue-800 transition duration-300">
-                    Read More <ChevronRight size={16} className="ml-1" />
-                  </button>
-                </div>
-              </div>
-              
-              {/* News Item 2 */}
-              <div className="bg-white rounded-lg shadow-md overflow-hidden">
-                <div className="h-48 overflow-hidden">
-                  <img 
-                    src="https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=600&h=400" 
-                    alt="News event" 
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="p-6">
-                  <div className="flex items-center text-sm text-gray-500 mb-2">
-                    <Calendar size={16} className="mr-1" />
-                    <span>May 8, 2025</span>
-                  </div>
-                  <h3 className="font-serif text-xl font-bold text-blue-700 mb-2">CBC Parent Workshop</h3>
-                  <p className="text-gray-600 mb-4">
-                    Parents are invited to learn more about CBC implementation and how to support their children's learning at home.
-                  </p>
-                  <button className="flex items-center text-blue-600 font-semibold hover:text-blue-800 transition duration-300">
-                    Read More <ChevronRight size={16} className="ml-1" />
-                  </button>
-                </div>
-              </div>
-              
-              {/* News Item 3 */}
-              <div className="bg-white rounded-lg shadow-md overflow-hidden">
-                <div className="h-48 overflow-hidden">
-                  <img 
-                    src="https://images.unsplash.com/photo-1431576901776-e539bd916ba2?auto=format&fit=crop&w=600&h=400" 
-                    alt="News event" 
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="p-6">
-                  <div className="flex items-center text-sm text-gray-500 mb-2">
-                    <Calendar size={16} className="mr-1" />
-                    <span>April 28, 2025</span>
-                  </div>
-                  <h3 className="font-serif text-xl font-bold text-blue-700 mb-2">New Science Lab Opening</h3>
-                  <p className="text-gray-600 mb-4">
-                    We're excited to announce the opening of our new state-of-the-art science laboratory at our Nairobi campus.
-                  </p>
-                  <button className="flex items-center text-blue-600 font-semibold hover:text-blue-800 transition duration-300">
-                    Read More <ChevronRight size={16} className="ml-1" />
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Final CTA Section */}
-        <section className="py-16 bg-blue-700 text-white">
-          <div className="container mx-auto px-4 text-center">
-            <h2 className="font-serif text-3xl md:text-4xl font-bold mb-6">Join the Stars of Excellence</h2>
-            <p className="text-lg text-blue-100 max-w-2xl mx-auto mb-8">
-              Give your child the gift of quality education in a nurturing environment. Applications for the next intake are now open.
-            </p>
-            <button className="bg-white text-blue-700 hover:bg-blue-50 font-bold py-3 px-8 rounded-md shadow-lg transition duration-300">
-              Apply Now
-            </button>
-          </div>
-        </section>
-      </main>
-
-      {/* Footer */}
-      <footer className="bg-blue-900 text-white py-10">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-3 gap-8">
-            {/* Contact Info */}
-            <div>
-              <h3 className="font-serif text-xl font-bold mb-4">Contact Us</h3>
-              <div className="space-y-3">
-                <div className="flex items-start">
-                  <Mail size={20} className="mr-2 mt-1 flex-shrink-0" />
-                  <a href="mailto:stevensintergratedschools@gmail.com" className="hover:text-blue-300 transition duration-300">
-                    stevensintergratedschools@gmail.com
-                  </a>
-                </div>
-                <div className="flex items-start">
-                  <Phone size={20} className="mr-2 mt-1 flex-shrink-0" />
-                  <span>+254 123 456 789</span>
-                </div>
-                <div className="flex items-start">
-                  <MapPin size={20} className="mr-2 mt-1 flex-shrink-0" />
-                  <div>
-                    <p>Nairobi Campus: Imara Daima</p>
-                    <p>Kitengela Campus: Airview</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            {/* Quick Links */}
-            <div>
-              <h3 className="font-serif text-xl font-bold mb-4">Quick Links</h3>
-              <ul className="space-y-2">
-                <li><Link to="/" className="hover:text-blue-300 transition duration-300">Home</Link></li>
-                <li><Link to="/about" className="hover:text-blue-300 transition duration-300">About Us</Link></li>
-                <li><Link to="/academics" className="hover:text-blue-300 transition duration-300">Academics</Link></li>
-                <li><Link to="/campuses" className="hover:text-blue-300 transition duration-300">Campuses</Link></li>
-                <li><Link to="/admissions" className="hover:text-blue-300 transition duration-300">Admissions</Link></li>
-                <li><Link to="/contact" className="hover:text-blue-300 transition duration-300">Contact</Link></li>
-              </ul>
-            </div>
-            
-            {/* Social & Newsletter */}
-            <div>
-              <h3 className="font-serif text-xl font-bold mb-4">Connect With Us</h3>
-              <div className="flex space-x-4 mb-6">
-                <a href="#" className="bg-blue-800 hover:bg-blue-700 p-2 rounded-full transition duration-300">
-                  <Facebook size={20} />
-                </a>
-                <a href="#" className="bg-blue-800 hover:bg-blue-700 p-2 rounded-full transition duration-300">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M9 12a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"></path>
-                    <path d="M16 8v8"></path>
-                    <path d="M12 16v-8"></path>
-                    <path d="M20 12V8h-4"></path>
-                    <path d="M16 12a4 4 0 0 0 4 4"></path>
-                  </svg>
-                </a>
-                <a href="#" className="bg-blue-800 hover:bg-blue-700 p-2 rounded-full transition duration-300">
-                  <Instagram size={20} />
-                </a>
-              </div>
-              <p className="text-sm text-blue-200 mt-6">
-                &copy; {new Date().getFullYear()} Stevens Integrated Schools. All rights reserved.
-              </p>
-            </div>
-          </div>
         </div>
-      </footer>
+      </section>
+
+      {/* News & Events Section with Carousel */}
+      <section className="section-padding bg-navy/5">
+        <div className="container">
+          <div className="text-center mb-12">
+            <h2 className="section-title mx-auto after:left-0 after:right-0 after:mx-auto">News & Events</h2>
+            <p className="text-gray-600 max-w-3xl mx-auto">
+              Stay updated with the latest happenings and upcoming events at Stevens Integrated Schools.
+            </p>
+          </div>
+          
+          <Carousel className="max-w-5xl mx-auto">
+            <CarouselContent>
+              {/* Event 1 */}
+              <CarouselItem className="md:basis-1/2 lg:basis-1/3">
+                <div className="bg-white rounded-lg shadow-md overflow-hidden h-full">
+                  <div className="h-48 overflow-hidden">
+                    <img 
+                      src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=600&h=400" 
+                      alt="News event" 
+                      className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                    />
+                  </div>
+                  <div className="p-6">
+                    <div className="flex items-center text-sm text-gray-500 mb-2">
+                      <CalendarIcon size={16} className="mr-1" />
+                      <span>May 15, 2025</span>
+                    </div>
+                    <h3 className="font-playfair text-xl text-navy mb-2">Annual Sports Day</h3>
+                    <p className="text-gray-600 mb-4 line-clamp-3">
+                      Join us for our annual sports day celebration featuring competitions and performances from all grade levels.
+                    </p>
+                    <Link to="/" className="flex items-center text-gold font-medium hover:text-gold-600 transition duration-300 group">
+                      Read More <ChevronRight size={16} className="ml-1 transition-transform group-hover:translate-x-1" />
+                    </Link>
+                  </div>
+                </div>
+              </CarouselItem>
+              
+              {/* Event 2 */}
+              <CarouselItem className="md:basis-1/2 lg:basis-1/3">
+                <div className="bg-white rounded-lg shadow-md overflow-hidden h-full">
+                  <div className="h-48 overflow-hidden">
+                    <img 
+                      src="https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=600&h=400" 
+                      alt="News event" 
+                      className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                    />
+                  </div>
+                  <div className="p-6">
+                    <div className="flex items-center text-sm text-gray-500 mb-2">
+                      <CalendarIcon size={16} className="mr-1" />
+                      <span>May 8, 2025</span>
+                    </div>
+                    <h3 className="font-playfair text-xl text-navy mb-2">CBC Parent Workshop</h3>
+                    <p className="text-gray-600 mb-4 line-clamp-3">
+                      Parents are invited to learn more about CBC implementation and how to support their children's learning at home.
+                    </p>
+                    <Link to="/" className="flex items-center text-gold font-medium hover:text-gold-600 transition duration-300 group">
+                      Read More <ChevronRight size={16} className="ml-1 transition-transform group-hover:translate-x-1" />
+                    </Link>
+                  </div>
+                </div>
+              </CarouselItem>
+              
+              {/* Event 3 */}
+              <CarouselItem className="md:basis-1/2 lg:basis-1/3">
+                <div className="bg-white rounded-lg shadow-md overflow-hidden h-full">
+                  <div className="h-48 overflow-hidden">
+                    <img 
+                      src="https://images.unsplash.com/photo-1431576901776-e539bd916ba2?auto=format&fit=crop&w=600&h=400" 
+                      alt="News event" 
+                      className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                    />
+                  </div>
+                  <div className="p-6">
+                    <div className="flex items-center text-sm text-gray-500 mb-2">
+                      <CalendarIcon size={16} className="mr-1" />
+                      <span>April 28, 2025</span>
+                    </div>
+                    <h3 className="font-playfair text-xl text-navy mb-2">New Science Lab Opening</h3>
+                    <p className="text-gray-600 mb-4 line-clamp-3">
+                      We're excited to announce the opening of our new state-of-the-art science laboratory at our Nairobi campus.
+                    </p>
+                    <Link to="/" className="flex items-center text-gold font-medium hover:text-gold-600 transition duration-300 group">
+                      Read More <ChevronRight size={16} className="ml-1 transition-transform group-hover:translate-x-1" />
+                    </Link>
+                  </div>
+                </div>
+              </CarouselItem>
+              
+              {/* Event 4 */}
+              <CarouselItem className="md:basis-1/2 lg:basis-1/3">
+                <div className="bg-white rounded-lg shadow-md overflow-hidden h-full">
+                  <div className="h-48 overflow-hidden">
+                    <img 
+                      src="https://images.unsplash.com/photo-1506744476757-2fa66ead5fd1?auto=format&fit=crop&w=600&h=400" 
+                      alt="News event" 
+                      className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                    />
+                  </div>
+                  <div className="p-6">
+                    <div className="flex items-center text-sm text-gray-500 mb-2">
+                      <CalendarIcon size={16} className="mr-1" />
+                      <span>April 15, 2025</span>
+                    </div>
+                    <h3 className="font-playfair text-xl text-navy mb-2">Cultural Day Celebrations</h3>
+                    <p className="text-gray-600 mb-4 line-clamp-3">
+                      Join us for a day of celebrating Kenya's diverse cultures with food, music, dance and traditional attire.
+                    </p>
+                    <Link to="/" className="flex items-center text-gold font-medium hover:text-gold-600 transition duration-300 group">
+                      Read More <ChevronRight size={16} className="ml-1 transition-transform group-hover:translate-x-1" />
+                    </Link>
+                  </div>
+                </div>
+              </CarouselItem>
+            </CarouselContent>
+            <div className="hidden md:flex">
+              <CarouselPrevious className="bg-navy text-white hover:bg-navy-600 border-0" />
+              <CarouselNext className="bg-navy text-white hover:bg-navy-600 border-0" />
+            </div>
+          </Carousel>
+        </div>
+      </section>
+
+      {/* Call to Action Section */}
+      <section className="section-padding bg-navy text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-navy-500/90 z-10"></div>
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="https://images.unsplash.com/photo-1501504905252-473c47e087f8?auto=format&fit=crop&w=1600&h=900" 
+            alt="School background" 
+            className="w-full h-full object-cover opacity-20"
+          />
+        </div>
+        <div className="container relative z-20 text-center">
+          <h2 className="font-playfair text-3xl md:text-4xl lg:text-5xl font-bold mb-6 max-w-3xl mx-auto">
+            Join the Stars of Excellence
+          </h2>
+          <div className="w-24 h-1 bg-gold mx-auto mb-8"></div>
+          <p className="text-lg text-blue-100 max-w-2xl mx-auto mb-10 leading-relaxed">
+            Give your child the gift of quality education in a nurturing environment. 
+            Applications for the next intake are now open.
+          </p>
+          <Link to="/admissions" className="btn-gold text-base font-medium px-8 py-3">
+            Apply Now
+          </Link>
+        </div>
+      </section>
     </div>
   );
-}
+};
 
 export default Index;
