@@ -28,8 +28,8 @@ const Header = () => {
   const navItems = [
     { name: "Home", path: "/" },
     { name: "About Us", path: "/about" },
-    { name: "Academics", path: "/academics" },
-    { name: "Campuses", path: "/campuses" },
+    { name: "Curriculum", path: "/academics" }, // Renamed from "Academics" to "Curriculum" as requested
+    { name: "Facilities", path: "/campuses" }, // Renamed from "Campuses" to "Facilities" as requested
     { name: "Admissions", path: "/admissions" },
     { name: "Contact", path: "/contact" },
   ];
@@ -40,12 +40,12 @@ const Header = () => {
         <nav className="flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center group">
-            <div className="w-12 h-12 rounded-full bg-navy flex items-center justify-center text-white transition-all duration-300 group-hover:bg-gold">
+            <div className="w-12 h-12 rounded-full bg-darkBlue flex items-center justify-center text-white transition-all duration-300 group-hover:bg-accentBlue">
               <span className="font-playfair font-bold text-xl">SIS</span>
             </div>
             <div className="hidden md:block ml-3">
-              <h1 className="font-playfair text-xl font-bold text-navy">Stevens Integrated Schools</h1>
-              <p className="text-xs italic text-gray-600">Stars of Excellence</p>
+              <h1 className="font-playfair text-xl font-bold text-darkBlue">Stevens Integrated Schools</h1>
+              <p className="text-xs italic text-textGray">Stars of Excellence</p>
             </div>
           </Link>
 
@@ -57,8 +57,8 @@ const Header = () => {
                 to={item.path}
                 className={`px-3 py-2 text-sm lg:text-base transition-colors duration-300 ${
                   isActive(item.path)
-                    ? 'text-gold font-medium'
-                    : 'text-navy hover:text-gold'
+                    ? 'text-accentBlue font-medium'
+                    : 'text-darkBlue hover:text-accentBlue'
                 }`}
               >
                 <span className="link-hover">{item.name}</span>
@@ -70,7 +70,7 @@ const Header = () => {
           <div className="hidden md:block">
             <Link 
               to="/admissions" 
-              className="btn-gold text-sm"
+              className="btn-accent text-sm"
             >
               Enroll Now
             </Link>
@@ -78,7 +78,7 @@ const Header = () => {
 
           {/* Mobile Menu Button */}
           <button 
-            className="md:hidden text-navy" 
+            className="md:hidden text-darkBlue" 
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label={isMenuOpen ? "Close menu" : "Open menu"}
           >
@@ -89,7 +89,7 @@ const Header = () => {
 
       {/* Mobile Navigation */}
       {isMenuOpen && (
-        <div className="md:hidden bg-white border-t border-gray-100 animate-fade-in">
+        <div className="md:hidden bg-white border-t border-softGray-200 animate-fade-in">
           <div className="container mx-auto px-4 py-4">
             <div className="flex flex-col space-y-3">
               {navItems.map((item) => (
@@ -99,8 +99,8 @@ const Header = () => {
                   onClick={closeMenu}
                   className={`py-2 transition-colors duration-300 ${
                     isActive(item.path)
-                      ? 'text-gold font-medium'
-                      : 'text-navy hover:text-gold'
+                      ? 'text-accentBlue font-medium'
+                      : 'text-darkBlue hover:text-accentBlue'
                   }`}
                 >
                   {item.name}
@@ -109,7 +109,7 @@ const Header = () => {
               <div className="pt-3 mt-3 border-t">
                 <Link 
                   to="/admissions" 
-                  className="btn-gold w-full justify-center"
+                  className="btn-accent w-full justify-center"
                   onClick={closeMenu}
                 >
                   Enroll Now

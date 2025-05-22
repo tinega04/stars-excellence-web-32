@@ -8,8 +8,8 @@ import { HelmetProvider } from "react-helmet-async";
 import Layout from "./components/Layout";
 import Index from "./pages/Index";
 import About from "./pages/About";
-import Academics from "./pages/Academics";
-import Campuses from "./pages/Campuses";
+import Academics from "./pages/Academics"; // This will be our Curriculum page
+import Campuses from "./pages/Campuses"; // This will be our Facilities page
 import Admissions from "./pages/Admissions";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
@@ -27,8 +27,8 @@ const App = () => (
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/about" element={<About />} />
-              <Route path="/academics" element={<Academics />} />
-              <Route path="/campuses" element={<Campuses />} />
+              <Route path="/academics" element={<Academics />} /> {/* Curriculum route */}
+              <Route path="/campuses" element={<Campuses />} /> {/* Facilities route */}
               <Route path="/admissions" element={<Admissions />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="*" element={<NotFound />} />
