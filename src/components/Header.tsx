@@ -1,7 +1,17 @@
 
 import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu";
+import { cn } from "@/lib/utils";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -32,6 +42,12 @@ const Header = () => {
     { name: "Facilities", path: "/campuses" },
     { name: "Admissions", path: "/admissions" },
     { name: "Contact", path: "/contact" },
+  ];
+
+  const portalItems = [
+    { name: "Learner Portal", path: "/portals/learner" },
+    { name: "Staff Portal", path: "/portals/staff" },
+    { name: "Learning Portal", path: "/portals/learning" },
   ];
   
   return (
@@ -64,6 +80,45 @@ const Header = () => {
                 <span className="link-hover">{item.name}</span>
               </Link>
             ))}
+            
+            {/* Portals Dropdown */}
+            <NavigationMenu>
+              <NavigationMenuList>
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger 
+                    className={cn(
+                      "px-3 py-2 text-sm lg:text-base transition-colors duration-300",
+                      isActive("/portals/learner") || isActive("/portals/staff") || isActive("/portals/learning")
+                        ? 'text-accentBlue font-medium'
+                        : 'text-darkBlue hover:text-accentBlue'
+                    )}
+                  >
+                    Portals
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <ul className="grid gap-2 p-4 w-[240px]">
+                      {portalItems.map((item) => (
+                        <li key={item.path}>
+                          <NavigationMenuLink asChild>
+                            <Link
+                              className={cn(
+                                "block select-none space-y-1 rounded-md p-3 hover:bg-accent hover:text-accent-foreground",
+                                isActive(item.path) ? "bg-accent text-accent-foreground" : ""
+                              )}
+                              to={item.path}
+                            >
+                              <div className="text-sm font-medium leading-none">
+                                {item.name}
+                              </div>
+                            </Link>
+                          </NavigationMenuLink>
+                        </li>
+                      ))}
+                    </ul>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
           </div>
           
           {/* CTA Button - Desktop */}
@@ -106,6 +161,36 @@ const Header = () => {
                   {item.name}
                 </Link>
               ))}
+              
+              {/* Mobile Portals Dropdown */}
+              <div className="py-2">
+                <div className="flex items-center justify-between text-darkBlue hover:text-accentBlue cursor-pointer mb-2" 
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const dropdown = document.getElementById("mobile-portals-dropdown");
+                    dropdown?.classList.toggle("hidden");
+                  }}>
+                  <span>Portals</span>
+                  <ChevronDown size={16} />
+                </div>
+                <div id="mobile-portals-dropdown" className="hidden pl-4 border-l-2 border-accentBlue/20 space-y-2">
+                  {portalItems.map((item) => (
+                    <Link
+                      key={item.path}
+                      to={item.path}
+                      onClick={closeMenu}
+                      className={`block py-1 transition-colors duration-300 ${
+                        isActive(item.path)
+                          ? 'text-accentBlue font-medium'
+                          : 'text-darkBlue hover:text-accentBlue'
+                      }`}
+                    >
+                      {item.name}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+              
               <div className="pt-3 mt-3 border-t">
                 <Link 
                   to="/admissions" 
