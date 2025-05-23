@@ -1,12 +1,9 @@
-
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
 import { ChevronRight } from "lucide-react";
-
 const About = () => {
-  return (
-    <div className="min-h-screen">
+  return <div className="min-h-screen">
       <Helmet>
         <title>About Us | Stevens Integrated Schools</title>
         <meta name="description" content="Stevens Integrated Schools, founded in 2004, is a nurturing learning community serving learners from early childhood through junior school across our Imara Daima and Airview campuses." />
@@ -18,11 +15,7 @@ const About = () => {
       <div className="bg-navy w-full h-80 md:h-96 relative overflow-hidden">
         <div className="absolute inset-0 bg-navy/60 z-10"></div>
         <div className="absolute inset-0 z-0">
-          <img 
-            src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&q=80"
-            alt="Stevens Integrated Schools campus" 
-            className="w-full h-full object-cover object-center"
-          />
+          <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&q=80" alt="Stevens Integrated Schools campus" className="w-full h-full object-cover object-center" />
         </div>
         <div className="container relative z-20 h-full flex flex-col justify-center items-center text-white">
           <h1 className="font-playfair text-4xl md:text-5xl lg:text-6xl font-bold text-center mb-6 animate-fade-in">
@@ -37,12 +30,7 @@ const About = () => {
           <section className="mb-16">
             <div className="grid md:grid-cols-2 gap-8 items-center">
               <div className="card-premium rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300">
-                <img 
-                  src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&q=80&w=1000"
-                  alt="Stevens Integrated Schools campus" 
-                  className="w-full h-64 object-cover"
-                  loading="lazy"
-                />
+                <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&q=80&w=1000" alt="Stevens Integrated Schools campus" className="w-full h-64 object-cover" loading="lazy" />
               </div>
               <div>
                 <h2 className="text-3xl font-playfair text-navy mb-4">About Us</h2>
@@ -85,24 +73,10 @@ const About = () => {
           <section className="mb-16">
             <h2 className="text-3xl font-playfair text-navy mb-10 text-center">Core Values</h2>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-              {[
-                "Trust in God",
-                "Integrity",
-                "Team Spirit", 
-                "Professionalism",
-                "Responsibility", 
-                "Accountability",
-                "Commitment to Service",
-                "Excellence"
-              ].map((value, index) => (
-                <div 
-                  key={index} 
-                  className="bg-white p-5 rounded-lg border border-navy/10 shadow-sm hover:shadow-md hover:border-gold/30 transition-all duration-300 flex items-center gap-3"
-                >
+              {["Trust in God", "Integrity", "Team Spirit", "Professionalism", "Responsibility", "Accountability", "Commitment to Service", "Excellence"].map((value, index) => <div key={index} className="bg-white p-5 rounded-lg border border-navy/10 shadow-sm hover:shadow-md hover:border-gold/30 transition-all duration-300 flex items-center gap-3">
                   <div className="w-2 h-2 rounded-full bg-gold"></div>
                   <span className="font-medium text-navy">{value}</span>
-                </div>
-              ))}
+                </div>)}
             </div>
           </section>
 
@@ -143,7 +117,7 @@ const About = () => {
           <section>
             <div className="bg-navy text-white p-10 rounded-lg shadow-xl text-center">
               <h2 className="text-3xl font-playfair mb-6">Join Our Community</h2>
-              <p className="text-lg mb-8">Discover how your child can benefit from our holistic approach to education.</p>
+              <p className="text-lg mb-8 text-gray-800">Discover how your child can benefit from our holistic approach to education.</p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button asChild variant="outline" className="border-white text-white hover:bg-white/10">
                   <Link to="/admissions" className="px-8">Apply Now</Link>
@@ -156,8 +130,6 @@ const About = () => {
           </section>
         </div>
       </main>
-    </div>
-  );
+    </div>;
 };
-
 export default About;
