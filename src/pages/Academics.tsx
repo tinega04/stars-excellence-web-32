@@ -1,28 +1,14 @@
-
 import { Link } from "react-router-dom";
 import { Check } from "lucide-react";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
-
 const Academics = () => {
-  return (
-    <div className="min-h-screen flex flex-col">
+  return <div className="min-h-screen flex flex-col">
       <div className="bg-blue-900 py-20 text-white">
         <div className="container">
-          <h1 className="font-serif text-4xl md:text-5xl font-bold">Academics</h1>
+          <h1 className="font-serif text-4xl text-slate-50 font-bold md:text-5xl">Academics</h1>
         </div>
       </div>
       
@@ -154,51 +140,24 @@ const Academics = () => {
               <div>
                 <h3 className="text-xl font-medium text-blue-700 mb-4">Core Competencies</h3>
                 <div className="space-y-3">
-                  {[
-                    "Communication and collaboration",
-                    "Critical thinking and problem solving",
-                    "Creativity and imagination",
-                    "Citizenship",
-                    "Digital literacy",
-                    "Learning to learn",
-                    "Self-efficacy"
-                  ].map((item, index) => (
-                    <div key={index} className="flex items-center space-x-2">
+                  {["Communication and collaboration", "Critical thinking and problem solving", "Creativity and imagination", "Citizenship", "Digital literacy", "Learning to learn", "Self-efficacy"].map((item, index) => <div key={index} className="flex items-center space-x-2">
                       <Checkbox id={`competency-${index}`} />
-                      <label
-                        htmlFor={`competency-${index}`}
-                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                      >
+                      <label htmlFor={`competency-${index}`} className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
                         {item}
                       </label>
-                    </div>
-                  ))}
+                    </div>)}
                 </div>
               </div>
 
               <div>
                 <h3 className="text-xl font-medium text-blue-700 mb-4">Values</h3>
                 <div className="space-y-3">
-                  {[
-                    "Respect",
-                    "Responsibility",
-                    "Integrity",
-                    "Excellence",
-                    "Patriotism",
-                    "Unity",
-                    "Peace",
-                    "Social justice"
-                  ].map((item, index) => (
-                    <div key={index} className="flex items-center space-x-2">
+                  {["Respect", "Responsibility", "Integrity", "Excellence", "Patriotism", "Unity", "Peace", "Social justice"].map((item, index) => <div key={index} className="flex items-center space-x-2">
                       <Checkbox id={`value-${index}`} />
-                      <label
-                        htmlFor={`value-${index}`}
-                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                      >
+                      <label htmlFor={`value-${index}`} className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
                         {item}
                       </label>
-                    </div>
-                  ))}
+                    </div>)}
                 </div>
               </div>
             </div>
@@ -208,53 +167,33 @@ const Academics = () => {
           <div>
             <h2 className="text-3xl font-serif text-blue-800 mb-6">Frequently Asked Questions</h2>
             <div className="space-y-4">
-              {[
-                {
-                  question: "What is the teacher to student ratio?",
-                  answer: "We maintain a teacher to student ratio of 1:20 to ensure personalized attention for each child."
-                },
-                {
-                  question: "Do you offer extracurricular activities?",
-                  answer: "Yes, we offer a wide range of extracurricular activities including sports, music, art, drama, and various clubs to develop students' talents and interests beyond academics."
-                },
-                {
-                  question: "How do you assess student progress?",
-                  answer: "We use continuous assessment techniques including projects, presentations, portfolios, and traditional tests to provide a comprehensive view of each student's progress and development."
-                },
-                {
-                  question: "Do you offer special education services?",
-                  answer: "Yes, we have support programs for students with special educational needs, with specialized teachers trained to provide appropriate interventions and accommodations."
-                }
-              ].map((faq, index) => (
-                <Collapsible key={index} className="border rounded-md">
+              {[{
+              question: "What is the teacher to student ratio?",
+              answer: "We maintain a teacher to student ratio of 1:20 to ensure personalized attention for each child."
+            }, {
+              question: "Do you offer extracurricular activities?",
+              answer: "Yes, we offer a wide range of extracurricular activities including sports, music, art, drama, and various clubs to develop students' talents and interests beyond academics."
+            }, {
+              question: "How do you assess student progress?",
+              answer: "We use continuous assessment techniques including projects, presentations, portfolios, and traditional tests to provide a comprehensive view of each student's progress and development."
+            }, {
+              question: "Do you offer special education services?",
+              answer: "Yes, we have support programs for students with special educational needs, with specialized teachers trained to provide appropriate interventions and accommodations."
+            }].map((faq, index) => <Collapsible key={index} className="border rounded-md">
                   <CollapsibleTrigger className="flex justify-between items-center w-full p-4 text-left font-medium hover:bg-blue-50">
                     {faq.question}
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="lucide lucide-chevron-down h-5 w-5"
-                    >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-down h-5 w-5">
                       <path d="m6 9 6 6 6-6" />
                     </svg>
                   </CollapsibleTrigger>
                   <CollapsibleContent className="p-4 pt-0 text-gray-600 border-t">
                     {faq.answer}
                   </CollapsibleContent>
-                </Collapsible>
-              ))}
+                </Collapsible>)}
             </div>
           </div>
         </div>
       </main>
-    </div>
-  );
+    </div>;
 };
-
 export default Academics;
