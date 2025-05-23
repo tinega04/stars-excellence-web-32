@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { useToast } from "@/components/ui/use-toast";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
@@ -25,24 +26,43 @@ import {
   Filter,
   PlusCircle,
   Clock,
-  AlertCircle
+  AlertCircle,
+  Facebook,
+  Instagram,
+  CheckCircle2,
+  XCircle
 } from "lucide-react";
 
 const LearningPortal = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
   const [userType, setUserType] = useState<"teacher" | "learner">("learner");
+  const [loginStep, setLoginStep] = useState<"credentials" | "userType">("credentials");
+  const { toast } = useToast();
   
   const handleLogin = (username: string, password: string) => {
-    // In a real app, this would validate credentials against a backend
-    console.log("Logging in with:", username, password);
+    // Check for teacher credentials
+    if (username === "teacher" && password === "test123") {
+      setUserType("teacher");
+      setUsername(username);
+      setIsLoggedIn(true);
+      return;
+    }
     
-    // Simulate login - in a real app, the backend would determine user type
-    // For demo purposes, we'll set teacher for specific usernames
-    const isTeacher = username.toLowerCase().includes("teacher") || username.toLowerCase().includes("tutor");
-    setUserType(isTeacher ? "teacher" : "learner");
-    setUsername(username);
-    setIsLoggedIn(true);
+    // Check for learner credentials
+    if (username === "learner" && password === "test123") {
+      setUserType("learner");
+      setUsername(username);
+      setIsLoggedIn(true);
+      return;
+    }
+    
+    // Invalid credentials
+    toast({
+      title: "Login Failed",
+      description: "Incorrect username or password. Try using: teacher / test123 or learner / test123",
+      variant: "destructive"
+    });
   };
 
   if (!isLoggedIn) {
@@ -98,6 +118,23 @@ const LearningPortal = () => {
 
 const TeacherDashboard = () => {
   const [activeTab, setActiveTab] = useState("content");
+  const { toast } = useToast();
+  
+  const handleUploadContent = () => {
+    toast({
+      title: "Content Uploaded",
+      description: "Your content has been successfully uploaded.",
+      variant: "default"
+    });
+  };
+  
+  const handleCreateAssignment = () => {
+    toast({
+      title: "Assignment Created",
+      description: "Your assignment has been successfully created and assigned to students.",
+      variant: "default"
+    });
+  };
   
   return (
     <>
@@ -197,7 +234,10 @@ const TeacherDashboard = () => {
               </div>
               
               <div className="flex justify-end">
-                <Button className="bg-accentBlue hover:bg-accentBlue-600 text-white">
+                <Button 
+                  className="bg-accentBlue hover:bg-accentBlue-600 text-white"
+                  onClick={handleUploadContent}
+                >
                   <Upload className="h-4 w-4 mr-2" /> Upload Resource
                 </Button>
               </div>
@@ -362,7 +402,10 @@ const TeacherDashboard = () => {
               </div>
               
               <div className="flex justify-end">
-                <Button className="bg-accentBlue hover:bg-accentBlue-600 text-white">
+                <Button 
+                  className="bg-accentBlue hover:bg-accentBlue-600 text-white"
+                  onClick={handleCreateAssignment}
+                >
                   <PlusCircle className="h-4 w-4 mr-2" /> Create Assignment
                 </Button>
               </div>
@@ -445,6 +488,16 @@ const TeacherDashboard = () => {
 };
 
 const LearnerDashboard = () => {
+  const { toast } = useToast();
+  
+  const handleSubmitWork = () => {
+    toast({
+      title: "Work Submitted",
+      description: "Your assignment has been successfully submitted.",
+      variant: "default"
+    });
+  };
+  
   return (
     <>
       <DashboardSection 
@@ -612,12 +665,12 @@ const LearnerDashboard = () => {
                   <div className="flex items-center gap-2">
                     {i === 1 ? (
                       <div className="flex items-center text-xs text-green-600">
-                        <div className="w-2 h-2 bg-green-600 rounded-full mr-1.5"></div>
+                        <CheckCircle2 className="h-3 w-3 mr-1" />
                         Submitted on May 18, 2025
                       </div>
                     ) : i === 2 ? (
                       <div className="flex items-center text-xs text-red-500">
-                        <AlertCircle className="h-3 w-3 mr-1" />
+                        <XCircle className="h-3 w-3 mr-1" />
                         2 days overdue
                       </div>
                     ) : (
@@ -639,6 +692,7 @@ const LearnerDashboard = () => {
                       <Button 
                         className="bg-accentBlue hover:bg-accentBlue-600 text-white" 
                         size="sm"
+                        onClick={handleSubmitWork}
                       >
                         Submit Work
                       </Button>

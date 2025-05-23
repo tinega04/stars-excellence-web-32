@@ -9,6 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
 import { 
   Table, 
   TableBody, 
@@ -23,12 +24,20 @@ import { ArrowRight, Download } from "lucide-react";
 const LearnerPortal = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
+  const { toast } = useToast();
 
   const handleLogin = (username: string, password: string) => {
-    // In a real app, this would validate credentials against a backend
-    console.log("Logging in with:", username, password);
-    setUsername(username);
-    setIsLoggedIn(true);
+    // Mock authentication check
+    if (username === "learner" && password === "test123") {
+      setUsername(username);
+      setIsLoggedIn(true);
+    } else {
+      toast({
+        title: "Login Failed",
+        description: "Incorrect username or password. Try using: learner / test123",
+        variant: "destructive"
+      });
+    }
   };
 
   if (!isLoggedIn) {
@@ -77,6 +86,7 @@ const LearnerPortal = () => {
   const feeStatements = [
     { term: "Term 1", year: "2025", amount: 45000, paid: 45000, balance: 0, status: "Paid", date: "2025-01-15" },
     { term: "Term 2", year: "2025", amount: 45000, paid: 30000, balance: 15000, status: "Partial", date: "2025-05-10" },
+    { term: "Term 3", year: "2025", amount: 45000, paid: 0, balance: 45000, status: "Unpaid", date: "2025-09-05" }
   ];
 
   return (
@@ -157,15 +167,19 @@ const LearnerPortal = () => {
                         <span className={`px-2 py-1 rounded-full text-xs ${
                           statement.status === "Paid" 
                             ? "bg-green-100 text-green-800" 
-                            : "bg-yellow-100 text-yellow-800"
+                            : statement.status === "Partial"
+                            ? "bg-yellow-100 text-yellow-800"
+                            : "bg-red-100 text-red-800"
                         }`}>
                           {statement.status}
                         </span>
                       </TableCell>
                       <TableCell className="text-right">
-                        <Button variant="ghost" size="sm" className="text-accentBlue hover:text-accentBlue-600 hover:bg-accentBlue/10 h-auto p-1">
-                          <Download size={16} />
-                        </Button>
+                        {statement.status !== "Unpaid" && (
+                          <Button variant="ghost" size="sm" className="text-accentBlue hover:text-accentBlue-600 hover:bg-accentBlue/10 h-auto p-1">
+                            <Download size={16} />
+                          </Button>
+                        )}
                       </TableCell>
                     </TableRow>
                   ))}
@@ -187,12 +201,12 @@ const LearnerPortal = () => {
               <div className="space-y-4">
                 <div className="grid grid-cols-1 gap-2">
                   <Label htmlFor="name">Full Name</Label>
-                  <Input id="name" value="John Doe" disabled />
+                  <Input id="name" value="John Doe" />
                 </div>
                 
                 <div className="grid grid-cols-1 gap-2">
                   <Label htmlFor="dob">Date of Birth</Label>
-                  <Input id="dob" value="2010-05-15" disabled />
+                  <Input id="dob" value="2010-05-15" type="date" />
                 </div>
                 
                 <div className="grid grid-cols-1 gap-2">
@@ -202,7 +216,7 @@ const LearnerPortal = () => {
                 
                 <div className="grid grid-cols-1 gap-2">
                   <Label htmlFor="county">County</Label>
-                  <Input id="county" value="Nairobi" disabled />
+                  <Input id="county" value="Nairobi" />
                 </div>
               </div>
             </div>
