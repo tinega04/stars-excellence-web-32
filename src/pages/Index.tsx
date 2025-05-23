@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { 
@@ -42,6 +41,11 @@ const Index = () => {
       link: "/campuses"
     }
   ];
+  
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   
   useEffect(() => {
     const interval = setInterval(() => {
@@ -89,7 +93,7 @@ const Index = () => {
                   </p>
                   <Link 
                     to={slide.link} 
-                    className="bg-accentBlue hover:bg-accentBlue-600 text-white px-6 py-3 rounded flex items-center gap-2 transition duration-300 animate-fade-in"
+                    className="bg-accentBlue hover:bg-white hover:text-accentBlue text-white px-6 py-3 rounded flex items-center gap-2 transition duration-300 animate-fade-in"
                   >
                     {slide.cta}
                     <ArrowRight size={16} />
@@ -110,7 +114,7 @@ const Index = () => {
                 className={`w-3 h-3 rounded-full transition-all ${
                   activeSlide === index 
                     ? 'bg-accentBlue w-8' 
-                    : 'bg-white/50 hover:bg-white'
+                    : 'bg-white/80 hover:bg-white'
                 }`}
                 aria-label={`Go to slide ${index + 1}`}
               ></button>
@@ -299,7 +303,7 @@ const Index = () => {
               <div className="flex flex-col items-center text-center group">
                 <div className="w-16 h-16 bg-accentBlue/10 rounded-full flex items-center justify-center mb-4 group-hover:bg-accentBlue/20 transition-colors duration-300">
                   <img 
-                    src="https://images.unsplash.com/photo-1506744038136-46273f02e42e?auto=format&fit=crop&w=64&h=64" 
+                    src="https://images.unsplash.com/photo-1506744476757-2fa66ead5fd1?auto=format&fit=crop&w=64&h=64" 
                     alt="Activities icon" 
                     className="w-8 h-8 object-contain"
                   />
@@ -439,7 +443,7 @@ const Index = () => {
       </section>
 
       {/* Call to Action Section */}
-      <section className="section-padding bg-darkBlue text-white relative overflow-hidden">
+      <section className="section-padding bg-darkBlue text-white relative overflow-hidden border-b-8 border-accentBlue">
         <div className="absolute inset-0 bg-darkBlue/90 z-10"></div>
         <div className="absolute inset-0 z-0">
           <img 
@@ -457,7 +461,7 @@ const Index = () => {
             Give your child the gift of quality education in a nurturing environment. 
             Applications for the next intake are now open.
           </p>
-          <Link to="/admissions" className="bg-accentBlue hover:bg-accentBlue-600 text-white transition duration-300 px-8 py-3 rounded inline-flex items-center font-medium">
+          <Link to="/admissions" className="bg-accentBlue hover:bg-white hover:text-darkBlue text-white transition duration-300 px-8 py-3 rounded inline-flex items-center font-medium">
             Apply Now
           </Link>
         </div>

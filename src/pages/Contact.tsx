@@ -46,7 +46,7 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <div className="bg-blue-900 py-20 text-white">
+      <div className="bg-darkBlue py-20 text-white">
         <div className="container">
           <h1 className="font-serif text-4xl md:text-5xl font-bold">Contact Us</h1>
         </div>
@@ -54,54 +54,55 @@ const Contact = () => {
       
       <main className="container py-12">
         <div className="flex justify-center mb-8">
-          <Link to="/" className="text-blue-600 hover:text-blue-800">← Back to Home</Link>
+          <Link to="/" className="text-accentBlue hover:text-darkBlue">← Back to Home</Link>
         </div>
 
         <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
           {/* Contact Information */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-2xl font-serif text-blue-800">Get in Touch</CardTitle>
-              <CardDescription>We'd love to hear from you</CardDescription>
+          <Card className="border-accentBlue border-2">
+            <CardHeader className="bg-darkBlue/5">
+              <CardTitle className="text-2xl font-serif text-darkBlue">Get in Touch</CardTitle>
+              <CardDescription className="text-textGray-700">We'd love to hear from you</CardDescription>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-4 pt-6">
               <div className="flex items-start">
-                <Phone className="mr-3 text-blue-600 h-5 w-5 mt-1" />
+                <Phone className="mr-3 text-accentBlue h-5 w-5 mt-1" />
                 <div>
-                  <h3 className="font-medium text-gray-900">Phone</h3>
-                  <p className="text-gray-600">+254 123 456 789</p>
+                  <h3 className="font-medium text-darkBlue">Phone</h3>
+                  <p className="text-textGray-800">Nairobi Campus: +254 720 688 293</p>
+                  <p className="text-textGray-800">Kitengela Campus: +254 743 794 301</p>
                 </div>
               </div>
               
               <div className="flex items-start">
-                <Mail className="mr-3 text-blue-600 h-5 w-5 mt-1" />
+                <Mail className="mr-3 text-accentBlue h-5 w-5 mt-1" />
                 <div>
-                  <h3 className="font-medium text-gray-900">Email</h3>
-                  <p className="text-gray-600">stevensintegratedschools@gmail.com</p>
+                  <h3 className="font-medium text-darkBlue">Email</h3>
+                  <p className="text-textGray-800">stevensintegratedschools@gmail.com</p>
                 </div>
               </div>
               
               <div className="flex items-start">
-                <MapPin className="mr-3 text-blue-600 h-5 w-5 mt-1" />
+                <MapPin className="mr-3 text-accentBlue h-5 w-5 mt-1" />
                 <div>
-                  <h3 className="font-medium text-gray-900">Address</h3>
-                  <p className="text-gray-600">Nairobi Campus: Imara Daima</p>
-                  <p className="text-gray-600">Kitengela Campus: Airview</p>
+                  <h3 className="font-medium text-darkBlue">Address</h3>
+                  <p className="text-textGray-800">Nairobi Campus: Imara Daima</p>
+                  <p className="text-textGray-800">Kitengela Campus: Airview</p>
                 </div>
               </div>
             </CardContent>
           </Card>
 
           {/* Contact Form */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-2xl font-serif text-blue-800">Send us a Message</CardTitle>
-              <CardDescription>Fill out the form below</CardDescription>
+          <Card className="border-accentBlue border-2">
+            <CardHeader className="bg-darkBlue/5">
+              <CardTitle className="text-2xl font-serif text-darkBlue">Send us a Message</CardTitle>
+              <CardDescription className="text-textGray-700">Fill out the form below</CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-6">
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="name">
+                  <label className="block text-sm font-medium text-darkBlue mb-1" htmlFor="name">
                     Your Name
                   </label>
                   <input
@@ -110,13 +111,13 @@ const Contact = () => {
                     type="text"
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full rounded-md border border-accentBlue/30 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accentBlue"
                     required
                   />
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="email">
+                  <label className="block text-sm font-medium text-darkBlue mb-1" htmlFor="email">
                     Email Address
                   </label>
                   <input
@@ -125,13 +126,13 @@ const Contact = () => {
                     type="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full rounded-md border border-accentBlue/30 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accentBlue"
                     required
                   />
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="subject">
+                  <label className="block text-sm font-medium text-darkBlue mb-1" htmlFor="subject">
                     Subject
                   </label>
                   <input
@@ -140,13 +141,13 @@ const Contact = () => {
                     type="text"
                     value={formData.subject}
                     onChange={handleChange}
-                    className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full rounded-md border border-accentBlue/30 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accentBlue"
                     required
                   />
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="message">
+                  <label className="block text-sm font-medium text-darkBlue mb-1" htmlFor="message">
                     Your Message
                   </label>
                   <Textarea
@@ -154,14 +155,14 @@ const Contact = () => {
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
-                    className="min-h-[120px] w-full rounded-md border border-gray-300"
+                    className="min-h-[120px] w-full rounded-md border border-accentBlue/30"
                     required
                   />
                 </div>
                 
                 <button
                   type="submit"
-                  className="bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md px-4 py-2 transition duration-300"
+                  className="bg-accentBlue hover:bg-darkBlue text-white font-medium rounded-md px-4 py-2 transition duration-300"
                 >
                   Send Message
                 </button>
