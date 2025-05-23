@@ -1,21 +1,12 @@
-
 import { Link } from "react-router-dom";
 import { MapPin, Clock, Phone, Globe } from "lucide-react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
 const Campuses = () => {
-  return (
-    <div className="min-h-screen flex flex-col">
+  return <div className="min-h-screen flex flex-col">
       <div className="bg-blue-900 py-20 text-white">
         <div className="container">
-          <h1 className="font-serif text-4xl md:text-5xl font-bold">Our Campuses</h1>
+          <h1 className="font-serif text-4xl text-slate-50 font-bold md:text-5xl">Our Campuses</h1>
         </div>
       </div>
       
@@ -40,11 +31,7 @@ const Campuses = () => {
                 <div className="md:col-span-2">
                   <Card>
                     <div className="h-64 w-full overflow-hidden">
-                      <img 
-                        src="/placeholder.svg" 
-                        alt="Nairobi Campus" 
-                        className="w-full h-full object-cover"
-                      />
+                      <img src="/placeholder.svg" alt="Nairobi Campus" className="w-full h-full object-cover" />
                     </div>
                     <CardHeader>
                       <CardTitle className="text-2xl font-serif text-blue-800">Nairobi Campus</CardTitle>
@@ -120,11 +107,7 @@ const Campuses = () => {
                 <div className="md:col-span-2">
                   <Card>
                     <div className="h-64 w-full overflow-hidden">
-                      <img 
-                        src="/placeholder.svg" 
-                        alt="Kitengela Campus" 
-                        className="w-full h-full object-cover"
-                      />
+                      <img src="/placeholder.svg" alt="Kitengela Campus" className="w-full h-full object-cover" />
                     </div>
                     <CardHeader>
                       <CardTitle className="text-2xl font-serif text-blue-800">Kitengela Campus</CardTitle>
@@ -198,8 +181,6 @@ const Campuses = () => {
           </Tabs>
         </div>
       </main>
-    </div>
-  );
+    </div>;
 };
-
 export default Campuses;
