@@ -56,7 +56,7 @@ const Index = () => {
                 <div className="absolute inset-0 bg-darkBlue/60 z-10"></div>
                 <img src={slide.image} alt={slide.title} className="absolute inset-0 w-full h-full object-cover" />
                 <div className="absolute inset-0 flex flex-col justify-center items-center text-white z-20 px-4">
-                  <h1 className="font-playfair text-4xl md:text-5xl lg:text-6xl font-bold text-center mb-4 animate-fade-in">
+                  <h1 className="font-playfair text-4xl md:text-5xl text-center mb-4 animate-fade-in text-slate-50 font-bold lg:text-6xl">
                     {slide.title}
                   </h1>
                   <p className="text-xl md:text-2xl text-center mb-8 max-w-2xl animate-fade-in">
