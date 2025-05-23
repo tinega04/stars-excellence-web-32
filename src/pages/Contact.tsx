@@ -1,17 +1,9 @@
-
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/hooks/use-toast";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 const Contact = () => {
   const [formData, setState] = useState({
     name: '',
@@ -19,21 +11,22 @@ const Contact = () => {
     subject: '',
     message: ''
   });
-  
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
+    const {
+      name,
+      value
+    } = e.target;
     setState(prev => ({
       ...prev,
       [name]: value
     }));
   };
-  
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Form submission logic would go here
     toast({
       title: "Message Sent",
-      description: "Thank you for your message. We will get back to you soon.",
+      description: "Thank you for your message. We will get back to you soon."
     });
     // Reset form
     setState({
@@ -43,12 +36,10 @@ const Contact = () => {
       message: ''
     });
   };
-
-  return (
-    <div className="min-h-screen flex flex-col">
+  return <div className="min-h-screen flex flex-col">
       <div className="bg-darkBlue py-20 text-white">
         <div className="container">
-          <h1 className="font-serif text-4xl md:text-5xl font-bold">Contact Us</h1>
+          <h1 className="font-serif text-4xl text-slate-50 font-bold md:text-5xl">Contact Us</h1>
         </div>
       </div>
       
@@ -105,65 +96,31 @@ const Contact = () => {
                   <label className="block text-sm font-medium text-darkBlue mb-1" htmlFor="name">
                     Your Name
                   </label>
-                  <input
-                    id="name"
-                    name="name"
-                    type="text"
-                    value={formData.name}
-                    onChange={handleChange}
-                    className="w-full rounded-md border border-accentBlue/30 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accentBlue"
-                    required
-                  />
+                  <input id="name" name="name" type="text" value={formData.name} onChange={handleChange} className="w-full rounded-md border border-accentBlue/30 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accentBlue" required />
                 </div>
                 
                 <div>
                   <label className="block text-sm font-medium text-darkBlue mb-1" htmlFor="email">
                     Email Address
                   </label>
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="w-full rounded-md border border-accentBlue/30 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accentBlue"
-                    required
-                  />
+                  <input id="email" name="email" type="email" value={formData.email} onChange={handleChange} className="w-full rounded-md border border-accentBlue/30 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accentBlue" required />
                 </div>
                 
                 <div>
                   <label className="block text-sm font-medium text-darkBlue mb-1" htmlFor="subject">
                     Subject
                   </label>
-                  <input
-                    id="subject"
-                    name="subject"
-                    type="text"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    className="w-full rounded-md border border-accentBlue/30 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accentBlue"
-                    required
-                  />
+                  <input id="subject" name="subject" type="text" value={formData.subject} onChange={handleChange} className="w-full rounded-md border border-accentBlue/30 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accentBlue" required />
                 </div>
                 
                 <div>
                   <label className="block text-sm font-medium text-darkBlue mb-1" htmlFor="message">
                     Your Message
                   </label>
-                  <Textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    className="min-h-[120px] w-full rounded-md border border-accentBlue/30"
-                    required
-                  />
+                  <Textarea id="message" name="message" value={formData.message} onChange={handleChange} className="min-h-[120px] w-full rounded-md border border-accentBlue/30" required />
                 </div>
                 
-                <button
-                  type="submit"
-                  className="bg-accentBlue hover:bg-darkBlue text-white font-medium rounded-md px-4 py-2 transition duration-300"
-                >
+                <button type="submit" className="bg-accentBlue hover:bg-darkBlue text-white font-medium rounded-md px-4 py-2 transition duration-300">
                   Send Message
                 </button>
               </form>
@@ -171,8 +128,6 @@ const Contact = () => {
           </Card>
         </div>
       </main>
-    </div>
-  );
+    </div>;
 };
-
 export default Contact;
