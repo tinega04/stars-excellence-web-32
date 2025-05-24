@@ -123,7 +123,7 @@ const About = () => {
               <h2 className="text-3xl font-playfair mb-6 text-white">Join Our Community</h2>
               <p className="text-lg mb-8 text-gray-200">Discover how your child can benefit from our holistic approach to education.</p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button asChild variant="outline" className="border-white text-white hover:bg-white hover:text-darkBlue">
+                <Button asChild className="bg-white text-darkBlue hover:bg-gray-100 border border-white">
                   <Link to="/admissions" className="px-8">Apply Now</Link>
                 </Button>
                 <Button asChild className="bg-accentBlue hover:bg-accentBlue/90 text-white">
