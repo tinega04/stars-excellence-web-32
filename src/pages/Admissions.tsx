@@ -2,6 +2,7 @@
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const Admissions = () => {
   return (
@@ -14,8 +15,8 @@ const Admissions = () => {
       </Helmet>
 
       {/* Hero Section */}
-      <div className="bg-navy w-full h-80 md:h-96 relative overflow-hidden">
-        <div className="absolute inset-0 bg-navy/60 z-10"></div>
+      <div className="bg-darkBlue w-full h-80 md:h-96 relative overflow-hidden">
+        <div className="absolute inset-0 bg-darkBlue/60 z-10"></div>
         <div className="absolute inset-0 z-0">
           <img 
             src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&q=80"
@@ -27,7 +28,7 @@ const Admissions = () => {
           <h1 className="font-playfair text-4xl md:text-5xl lg:text-6xl font-bold text-center mb-6 animate-fade-in">
             Admissions
           </h1>
-          <div className="w-24 h-1 bg-gold animate-fade-in-delayed opacity-0"></div>
+          <div className="w-24 h-1 bg-accentBlue animate-fade-in-delayed opacity-0"></div>
         </div>
       </div>
       
@@ -43,7 +44,7 @@ const Admissions = () => {
             
             <div className="grid md:grid-cols-2 gap-8 items-center">
               <div>
-                <h3 className="font-playfair text-2xl text-navy mb-4">Admissions Process</h3>
+                <h3 className="font-playfair text-2xl text-darkBlue mb-4">Admissions Process</h3>
                 <p className="text-gray-700 mb-4 leading-relaxed">
                   Our admissions process is designed to ensure that each student who joins our community is well-placed to thrive and contribute positively.
                 </p>
@@ -65,12 +66,12 @@ const Admissions = () => {
           <div className="border-t border-gray-200 my-12"></div>
 
           <section className="mb-16">
-            <h2 className="text-3xl font-playfair text-navy mb-10 text-center">How to Apply</h2>
+            <h2 className="text-3xl font-playfair text-darkBlue mb-10 text-center">How to Apply</h2>
             
             <div className="space-y-6">
-              <div className="bg-white p-6 rounded-lg border border-navy/10 shadow-sm hover:shadow-md transition-shadow duration-300">
-                <h3 className="font-playfair text-xl text-navy mb-3 flex items-center">
-                  <div className="w-8 h-8 rounded-full bg-navy text-white flex items-center justify-center mr-3">1</div>
+              <div className="bg-white p-6 rounded-lg border border-darkBlue/10 shadow-sm hover:shadow-md transition-shadow duration-300">
+                <h3 className="font-playfair text-xl text-darkBlue mb-3 flex items-center">
+                  <div className="w-8 h-8 rounded-full bg-darkBlue text-white flex items-center justify-center mr-3">1</div>
                   Inquiry
                 </h3>
                 <p className="text-gray-600 pl-11 leading-relaxed">
@@ -78,9 +79,9 @@ const Admissions = () => {
                 </p>
               </div>
               
-              <div className="bg-white p-6 rounded-lg border border-navy/10 shadow-sm hover:shadow-md transition-shadow duration-300">
-                <h3 className="font-playfair text-xl text-navy mb-3 flex items-center">
-                  <div className="w-8 h-8 rounded-full bg-navy text-white flex items-center justify-center mr-3">2</div>
+              <div className="bg-white p-6 rounded-lg border border-darkBlue/10 shadow-sm hover:shadow-md transition-shadow duration-300">
+                <h3 className="font-playfair text-xl text-darkBlue mb-3 flex items-center">
+                  <div className="w-8 h-8 rounded-full bg-darkBlue text-white flex items-center justify-center mr-3">2</div>
                   Application Form
                 </h3>
                 <p className="text-gray-600 pl-11 leading-relaxed">
@@ -88,9 +89,9 @@ const Admissions = () => {
                 </p>
               </div>
               
-              <div className="bg-white p-6 rounded-lg border border-navy/10 shadow-sm hover:shadow-md transition-shadow duration-300">
-                <h3 className="font-playfair text-xl text-navy mb-3 flex items-center">
-                  <div className="w-8 h-8 rounded-full bg-navy text-white flex items-center justify-center mr-3">3</div>
+              <div className="bg-white p-6 rounded-lg border border-darkBlue/10 shadow-sm hover:shadow-md transition-shadow duration-300">
+                <h3 className="font-playfair text-xl text-darkBlue mb-3 flex items-center">
+                  <div className="w-8 h-8 rounded-full bg-darkBlue text-white flex items-center justify-center mr-3">3</div>
                   Assessment
                 </h3>
                 <p className="text-gray-600 pl-11 leading-relaxed">
@@ -98,9 +99,9 @@ const Admissions = () => {
                 </p>
               </div>
               
-              <div className="bg-white p-6 rounded-lg border border-navy/10 shadow-sm hover:shadow-md transition-shadow duration-300">
-                <h3 className="font-playfair text-xl text-navy mb-3 flex items-center">
-                  <div className="w-8 h-8 rounded-full bg-navy text-white flex items-center justify-center mr-3">4</div>
+              <div className="bg-white p-6 rounded-lg border border-darkBlue/10 shadow-sm hover:shadow-md transition-shadow duration-300">
+                <h3 className="font-playfair text-xl text-darkBlue mb-3 flex items-center">
+                  <div className="w-8 h-8 rounded-full bg-darkBlue text-white flex items-center justify-center mr-3">4</div>
                   Decision & Enrollment
                 </h3>
                 <p className="text-gray-600 pl-11 leading-relaxed">
@@ -113,27 +114,27 @@ const Admissions = () => {
           <div className="border-t border-gray-200 my-12"></div>
 
           <section className="mb-16">
-            <h2 className="text-3xl font-playfair text-navy mb-10 text-center">Academic Year & Fees</h2>
+            <h2 className="text-3xl font-playfair text-darkBlue mb-10 text-center">Academic Year & Fees</h2>
             
-            <div className="bg-white p-8 rounded-lg border border-navy/10 shadow-md">
+            <div className="bg-white p-8 rounded-lg border border-darkBlue/10 shadow-md">
               <div className="grid md:grid-cols-2 gap-8">
                 <div>
-                  <h3 className="font-playfair text-xl text-navy mb-4">Academic Calendar</h3>
+                  <h3 className="font-playfair text-xl text-darkBlue mb-4">Academic Calendar</h3>
                   <ul className="space-y-3">
                     <li className="flex items-start">
-                      <div className="w-2 h-2 rounded-full bg-gold mt-2 mr-3"></div>
+                      <div className="w-2 h-2 rounded-full bg-accentBlue mt-2 mr-3"></div>
                       <div>
                         <span className="font-medium">Term 1:</span> January - April
                       </div>
                     </li>
                     <li className="flex items-start">
-                      <div className="w-2 h-2 rounded-full bg-gold mt-2 mr-3"></div>
+                      <div className="w-2 h-2 rounded-full bg-accentBlue mt-2 mr-3"></div>
                       <div>
                         <span className="font-medium">Term 2:</span> May - August
                       </div>
                     </li>
                     <li className="flex items-start">
-                      <div className="w-2 h-2 rounded-full bg-gold mt-2 mr-3"></div>
+                      <div className="w-2 h-2 rounded-full bg-accentBlue mt-2 mr-3"></div>
                       <div>
                         <span className="font-medium">Term 3:</span> September - December
                       </div>
@@ -145,7 +146,7 @@ const Admissions = () => {
                 </div>
                 
                 <div>
-                  <h3 className="font-playfair text-xl text-navy mb-4">Fee Structure</h3>
+                  <h3 className="font-playfair text-xl text-darkBlue mb-4">Fee Structure</h3>
                   <p className="text-gray-600 mb-4">
                     Our fees include tuition, learning materials, and most co-curricular activities. Additional fees may apply for transportation, uniforms, and special programs.
                   </p>
@@ -154,7 +155,7 @@ const Admissions = () => {
                   </p>
                   <Link 
                     to="/contact" 
-                    className="mt-4 inline-flex items-center text-gold font-medium hover:text-gold-600 transition duration-300"
+                    className="mt-4 inline-flex items-center text-accentBlue font-medium hover:text-accentBlue/80 transition duration-300"
                   >
                     Request Fee Structure <ArrowRight size={16} className="ml-1" />
                   </Link>
@@ -164,33 +165,31 @@ const Admissions = () => {
           </section>
 
           <section>
-            <div className="bg-navy text-white p-10 rounded-lg shadow-xl">
+            <div className="bg-darkBlue text-white p-10 rounded-lg shadow-xl">
               <div className="grid md:grid-cols-2 gap-8">
                 <div>
-                  <h2 className="text-3xl font-playfair mb-4">Ready to Apply?</h2>
-                  <p className="text-blue-100 mb-6 leading-relaxed">
+                  <h2 className="text-3xl font-playfair mb-4 text-white">Ready to Apply?</h2>
+                  <p className="text-gray-200 mb-6 leading-relaxed">
                     We look forward to welcoming your child to our school community. Contact us today to begin the application process.
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4">
-                    <a 
-                      href="#" 
-                      className="bg-gold hover:bg-gold-600 text-white px-6 py-3 rounded inline-flex items-center justify-center font-medium transition duration-300"
-                    >
-                      Start Application
-                    </a>
-                    <Link 
-                      to="/contact" 
-                      className="bg-transparent border border-white text-white px-6 py-3 rounded inline-flex items-center justify-center font-medium hover:bg-white/10 transition duration-300"
-                    >
-                      Contact Admissions
-                    </Link>
+                    <Button asChild className="bg-accentBlue hover:bg-accentBlue/90 text-white font-medium">
+                      <a href="#">
+                        Start Application
+                      </a>
+                    </Button>
+                    <Button asChild variant="outline" className="border-white text-white hover:bg-white hover:text-darkBlue font-medium">
+                      <Link to="/contact">
+                        Contact Admissions
+                      </Link>
+                    </Button>
                   </div>
                 </div>
                 <div className="flex items-center justify-center">
                   <img 
                     src="https://images.unsplash.com/photo-1546410531-bb4caa6b424d?auto=format&fit=crop&w=400&h=400"
                     alt="Students at Stevens Integrated Schools" 
-                    className="rounded-full w-48 h-48 object-cover border-4 border-gold"
+                    className="rounded-full w-48 h-48 object-cover border-4 border-accentBlue"
                   />
                 </div>
               </div>
