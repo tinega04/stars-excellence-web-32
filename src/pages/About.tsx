@@ -2,8 +2,10 @@ import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
 import { ChevronRight } from "lucide-react";
+
 const About = () => {
-  return <div className="min-h-screen">
+  return (
+    <div className="min-h-screen">
       <Helmet>
         <title>About Us | Stevens Integrated Schools</title>
         <meta name="description" content="Stevens Integrated Schools, founded in 2004, is a nurturing learning community serving learners from early childhood through junior school across our Imara Daima and Airview campuses." />
@@ -73,10 +75,12 @@ const About = () => {
           <section className="mb-16">
             <h2 className="text-3xl font-playfair text-navy mb-10 text-center">Core Values</h2>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-              {["Trust in God", "Integrity", "Team Spirit", "Professionalism", "Responsibility", "Accountability", "Commitment to Service", "Excellence"].map((value, index) => <div key={index} className="bg-white p-5 rounded-lg border border-navy/10 shadow-sm hover:shadow-md hover:border-gold/30 transition-all duration-300 flex items-center gap-3">
+              {["Trust in God", "Integrity", "Team Spirit", "Professionalism", "Responsibility", "Accountability", "Commitment to Service", "Excellence"].map((value, index) => (
+                <div key={index} className="bg-white p-5 rounded-lg border border-navy/10 shadow-sm hover:shadow-md hover:border-gold/30 transition-all duration-300 flex items-center gap-3">
                   <div className="w-2 h-2 rounded-full bg-gold"></div>
                   <span className="font-medium text-navy">{value}</span>
-                </div>)}
+                </div>
+              ))}
             </div>
           </section>
 
@@ -100,29 +104,29 @@ const About = () => {
               <div className="card-premium p-6">
                 <h3 className="text-xl font-playfair text-navy mb-2">Imara Daima Campus</h3>
                 <p className="text-gray-600 mb-4">Our flagship campus with state-of-the-art facilities serving Nairobi.</p>
-                <Button asChild variant="default" className="bg-navy hover:bg-navy-600 transition-colors">
-                  <Link to="/campuses" className="w-full">Schedule a Visit</Link>
+                <Button asChild className="w-full bg-accentBlue hover:bg-accentBlue/90 text-white">
+                  <Link to="/campuses">Schedule a Visit</Link>
                 </Button>
               </div>
               <div className="card-premium p-6">
                 <h3 className="text-xl font-playfair text-navy mb-2">Airview Campus</h3>
                 <p className="text-gray-600 mb-4">Our Kitengela campus providing quality education in a serene environment.</p>
-                <Button asChild variant="default" className="bg-navy hover:bg-navy-600 transition-colors">
-                  <Link to="/campuses" className="w-full">Schedule a Visit</Link>
+                <Button asChild className="w-full bg-accentBlue hover:bg-accentBlue/90 text-white">
+                  <Link to="/campuses">Schedule a Visit</Link>
                 </Button>
               </div>
             </div>
           </section>
 
           <section>
-            <div className="bg-navy text-white p-10 rounded-lg shadow-xl text-center">
-              <h2 className="text-3xl font-playfair mb-6">Join Our Community</h2>
-              <p className="text-lg mb-8 text-gray-800">Discover how your child can benefit from our holistic approach to education.</p>
+            <div className="bg-darkBlue text-white p-10 rounded-lg shadow-xl text-center">
+              <h2 className="text-3xl font-playfair mb-6 text-white">Join Our Community</h2>
+              <p className="text-lg mb-8 text-gray-200">Discover how your child can benefit from our holistic approach to education.</p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button asChild variant="outline" className="border-white text-white hover:bg-white/10">
+                <Button asChild variant="outline" className="border-white text-white hover:bg-white hover:text-darkBlue">
                   <Link to="/admissions" className="px-8">Apply Now</Link>
                 </Button>
-                <Button asChild className="bg-gold hover:bg-gold-600">
+                <Button asChild className="bg-accentBlue hover:bg-accentBlue/90 text-white">
                   <Link to="/contact" className="px-8">Contact Us</Link>
                 </Button>
               </div>
@@ -130,6 +134,8 @@ const About = () => {
           </section>
         </div>
       </main>
-    </div>;
+    </div>
+  );
 };
+
 export default About;
