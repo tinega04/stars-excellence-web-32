@@ -1,12 +1,9 @@
-
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
 import { ChevronRight } from "lucide-react";
-
 const About = () => {
-  return (
-    <div className="min-h-screen">
+  return <div className="min-h-screen">
       <Helmet>
         <title>About Us | Stevens Integrated Schools</title>
         <meta name="description" content="Stevens Integrated Schools, founded in 2004, is a nurturing learning community serving learners from early childhood through junior school across our Imara Daima and Airview campuses." />
@@ -21,7 +18,7 @@ const About = () => {
           <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&q=80" alt="Stevens Integrated Schools campus" className="w-full h-full object-cover object-center" />
         </div>
         <div className="container relative z-20 h-full flex flex-col justify-center items-center text-white">
-          <h1 className="font-playfair text-4xl md:text-5xl lg:text-6xl font-bold text-center mb-6 animate-fade-in">
+          <h1 className="font-playfair text-4xl md:text-5xl text-center mb-6 animate-fade-in text-slate-50 font-bold lg:text-6xl">
             About Stevens Integrated Schools
           </h1>
           <div className="w-24 h-1 bg-accentBlue animate-fade-in-delayed opacity-0"></div>
@@ -76,12 +73,10 @@ const About = () => {
           <section className="mb-16">
             <h2 className="text-3xl font-playfair text-darkBlue mb-10 text-center">Core Values</h2>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-              {["Trust in God", "Integrity", "Team Spirit", "Professionalism", "Responsibility", "Accountability", "Commitment to Service", "Excellence"].map((value, index) => (
-                <div key={index} className="bg-white p-5 rounded-lg border border-darkBlue/10 shadow-sm hover:shadow-md hover:border-accentBlue/30 transition-all duration-300 flex items-center gap-3">
+              {["Trust in God", "Integrity", "Team Spirit", "Professionalism", "Responsibility", "Accountability", "Commitment to Service", "Excellence"].map((value, index) => <div key={index} className="bg-white p-5 rounded-lg border border-darkBlue/10 shadow-sm hover:shadow-md hover:border-accentBlue/30 transition-all duration-300 flex items-center gap-3">
                   <div className="w-2 h-2 rounded-full bg-accentBlue"></div>
                   <span className="font-medium text-darkBlue">{value}</span>
-                </div>
-              ))}
+                </div>)}
             </div>
           </section>
 
@@ -135,8 +130,6 @@ const About = () => {
           </section>
         </div>
       </main>
-    </div>
-  );
+    </div>;
 };
-
 export default About;
