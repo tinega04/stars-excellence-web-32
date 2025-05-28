@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
@@ -14,11 +13,15 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import { Bell } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { useAuth } from '@/lib/auth';
 
 const StaffPortal = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
   const { toast } = useToast();
+  const { user } = useAuth();
+  const [activeTab, setActiveTab] = useState('schedule');
 
   const handleLogin = (username: string, password: string) => {
     // Mock authentication check
@@ -108,6 +111,13 @@ const StaffPortal = () => {
     }
   ];
 
+  // Mock data for development
+  const mockSchedule = [
+    { day: 'Monday', subject: 'Mathematics', class: 'Grade 8', time: '8:00 AM - 9:30 AM' },
+    { day: 'Monday', subject: 'Mathematics', class: 'Grade 7', time: '9:45 AM - 11:15 AM' },
+    { day: 'Tuesday', subject: 'Mathematics', class: 'Grade 6', time: '8:00 AM - 9:30 AM' },
+  ];
+
   return (
     <PortalLayout
       title="Staff Portal"
@@ -177,203 +187,160 @@ const StaffPortal = () => {
           </div>
         </div>
         
-        <DashboardSection title="Personal Information" description="Your employee profile and personal details">
-          <div>
-            <h3 className="font-medium text-darkBlue text-lg mb-4">Basic Information</h3>
-            <div className="grid md:grid-cols-2 gap-x-6 gap-y-4">
-              <div className="grid grid-cols-1 gap-2">
-                <Label htmlFor="full-name">Full Name</Label>
-                <Input id="full-name" value={staffData.name} />
-              </div>
-              
-              <div className="grid grid-cols-1 gap-2">
-                <Label htmlFor="id-number">National ID</Label>
-                <Input id="id-number" value={staffData.nationalId} />
-              </div>
-              
-              <div className="grid grid-cols-1 gap-2">
-                <Label htmlFor="department">Department</Label>
-                <Input id="department" value={staffData.department} />
-              </div>
-              
-              <div className="grid grid-cols-1 gap-2">
-                <Label htmlFor="position">Position</Label>
-                <Input id="position" value={staffData.role} />
-              </div>
-              
-              <div className="grid grid-cols-1 gap-2">
-                <Label htmlFor="employment-date">Employment Start Date</Label>
-                <Input id="employment-date" value={staffData.dateJoined} type="date" />
-              </div>
-              
-              <div className="grid grid-cols-1 gap-2">
-                <Label htmlFor="employee-id">Employee ID</Label>
-                <Input id="employee-id" value={staffData.employeeId} disabled />
-              </div>
-            </div>
-            
-            <Separator className="my-8" />
-            
-            <h3 className="font-medium text-darkBlue text-lg mb-4">Contact Information</h3>
-            <div className="grid md:grid-cols-2 gap-x-6 gap-y-4">
-              <div className="grid grid-cols-1 gap-2">
-                <Label htmlFor="email">Email Address</Label>
-                <Input id="email" value={staffData.email} />
-              </div>
-              
-              <div className="grid grid-cols-1 gap-2">
-                <Label htmlFor="phone">Phone Number</Label>
-                <Input id="phone" value={staffData.phone} />
-              </div>
-              
-              <div className="grid grid-cols-1 gap-2">
-                <Label htmlFor="emergency-contact">Emergency Contact</Label>
-                <Input id="emergency-contact" value={staffData.emergencyContact} />
-              </div>
-              
-              <div className="grid grid-cols-1 gap-2">
-                <Label htmlFor="emergency-name">Emergency Contact Name</Label>
-                <Input id="emergency-name" value={staffData.emergencyName} />
-              </div>
-            </div>
-            
-            <Separator className="my-8" />
-            
-            <h3 className="font-medium text-darkBlue text-lg mb-4">Banking Information</h3>
-            <div className="grid md:grid-cols-2 gap-x-6 gap-y-4 mb-6">
-              <div className="grid grid-cols-1 gap-2">
-                <Label htmlFor="bank-name">Bank Name</Label>
-                <Input id="bank-name" value={staffData.bankDetails.bankName} />
-              </div>
-              
-              <div className="grid grid-cols-1 gap-2">
-                <Label htmlFor="branch">Branch</Label>
-                <Input id="branch" value={staffData.bankDetails.branch} />
-              </div>
-              
-              <div className="grid grid-cols-1 gap-2">
-                <Label htmlFor="account-number">Account Number</Label>
-                <Input id="account-number" value={staffData.bankDetails.accountNumber} />
-              </div>
-            </div>
-            
-            <Button className="bg-accentBlue hover:bg-accentBlue-600">
-              Update Information
-            </Button>
-          </div>
-        </DashboardSection>
-        
-        <DashboardSection title="Leave Application" description="Submit and track your leave requests">
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="space-y-6">
-              <h3 className="font-medium text-darkBlue mb-4">New Leave Request</h3>
-              
-              <div className="space-y-4">
-                <div className="grid grid-cols-1 gap-2">
-                  <Label htmlFor="leave-type">Leave Type</Label>
-                  <Select>
-                    <SelectTrigger id="leave-type" className="border-accentBlue/30">
-                      <SelectValue placeholder="Select leave type" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="annual">Annual Leave</SelectItem>
-                      <SelectItem value="sick">Sick Leave</SelectItem>
-                      <SelectItem value="maternity">Maternity Leave</SelectItem>
-                      <SelectItem value="paternity">Paternity Leave</SelectItem>
-                      <SelectItem value="bereavement">Bereavement</SelectItem>
-                      <SelectItem value="study">Study Leave</SelectItem>
-                    </SelectContent>
-                  </Select>
+        <Tabs defaultValue="schedule" className="space-y-6" onValueChange={setActiveTab}>
+          <TabsList>
+            <TabsTrigger value="schedule">Teaching Schedule</TabsTrigger>
+            <TabsTrigger value="employment">Employment Info</TabsTrigger>
+            <TabsTrigger value="qualifications">Qualifications</TabsTrigger>
+            <TabsTrigger value="profile">Profile</TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="schedule">
+            <Card>
+              <CardHeader>
+                <CardTitle>Teaching Schedule</CardTitle>
+                <CardDescription>View your current teaching timetable</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="overflow-x-auto">
+                  <table className="w-full">
+                    <thead>
+                      <tr className="border-b">
+                        <th className="text-left py-3 px-4">Day</th>
+                        <th className="text-left py-3 px-4">Subject</th>
+                        <th className="text-left py-3 px-4">Class</th>
+                        <th className="text-left py-3 px-4">Time</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {mockSchedule.map((schedule, index) => (
+                        <tr key={index} className="border-b">
+                          <td className="py-3 px-4">{schedule.day}</td>
+                          <td className="py-3 px-4">{schedule.subject}</td>
+                          <td className="py-3 px-4">{schedule.class}</td>
+                          <td className="py-3 px-4">{schedule.time}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
-                
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="grid grid-cols-1 gap-2">
-                    <Label htmlFor="start-date">Start Date</Label>
-                    <Input id="start-date" type="date" className="border-accentBlue/30" />
-                  </div>
-                  
-                  <div className="grid grid-cols-1 gap-2">
-                    <Label htmlFor="end-date">End Date</Label>
-                    <Input id="end-date" type="date" className="border-accentBlue/30" />
-                  </div>
-                </div>
-                
-                <div className="grid grid-cols-1 gap-2">
-                  <Label htmlFor="reason">Reason</Label>
-                  <Textarea 
-                    id="reason" 
-                    placeholder="Provide details for your leave request" 
-                    className="resize-none h-32 border-accentBlue/30" 
-                  />
-                </div>
-                
-                <Button className="bg-accentBlue hover:bg-accentBlue-600 w-full sm:w-auto">
-                  Submit Leave Request
-                </Button>
-              </div>
-            </div>
-            
-            <div>
-              <h3 className="font-medium text-darkBlue mb-4">Leave Balance</h3>
-              <div className="border border-accentBlue/20 rounded-lg overflow-hidden">
-                <div className="grid grid-cols-2 gap-4 p-4 bg-accentBlue/5">
-                  <div>
-                    <p className="text-sm text-textGray">Annual Leave</p>
-                    <p className="text-2xl font-semibold text-darkBlue">15 days</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-textGray">Sick Leave</p>
-                    <p className="text-2xl font-semibold text-darkBlue">10 days</p>
-                  </div>
-                </div>
-                <div className="p-4 border-t border-accentBlue/20">
-                  <h4 className="font-medium text-sm mb-2">Recent Leave History</h4>
-                  <div className="space-y-2">
-                    <div className="flex justify-between items-center text-sm">
-                      <span className="text-textGray">Annual Leave</span>
-                      <div>
-                        <span className="text-darkBlue">5 days</span>
-                        <span className="text-xs text-textGray ml-2">Jan 5 - Jan 9, 2025</span>
-                      </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="employment">
+            <Card>
+              <CardHeader>
+                <CardTitle>Employment Information</CardTitle>
+                <CardDescription>View and update your employment details</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <form className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <Label htmlFor="employeeId">Employee ID</Label>
+                      <Input id="employeeId" defaultValue="EMP001" disabled />
                     </div>
-                    <div className="flex justify-between items-center text-sm">
-                      <span className="text-textGray">Sick Leave</span>
-                      <div>
-                        <span className="text-darkBlue">2 days</span>
-                        <span className="text-xs text-textGray ml-2">Feb 12 - Feb 13, 2025</span>
-                      </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="department">Department</Label>
+                      <Input id="department" defaultValue="Mathematics" />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="position">Position</Label>
+                      <Input id="position" defaultValue="Senior Teacher" />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="joinDate">Join Date</Label>
+                      <Input id="joinDate" type="date" />
                     </div>
                   </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </DashboardSection>
-        
-        <DashboardSection title="Password Management" description="Reset your account password">
-          <div className="max-w-md">
-            <div className="space-y-4">
-              <div className="grid grid-cols-1 gap-2">
-                <Label htmlFor="current-password">Current Password</Label>
-                <Input id="current-password" type="password" />
-              </div>
-              
-              <div className="grid grid-cols-1 gap-2">
-                <Label htmlFor="new-password">New Password</Label>
-                <Input id="new-password" type="password" />
-              </div>
-              
-              <div className="grid grid-cols-1 gap-2">
-                <Label htmlFor="confirm-password">Confirm New Password</Label>
-                <Input id="confirm-password" type="password" />
-              </div>
-              
-              <Button className="bg-accentBlue hover:bg-accentBlue-600">
-                Reset Password
-              </Button>
-            </div>
-          </div>
-        </DashboardSection>
+                  <Button type="submit" className="bg-accentBlue hover:bg-accentBlue-600">
+                    Update Employment Info
+                  </Button>
+                </form>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="qualifications">
+            <Card>
+              <CardHeader>
+                <CardTitle>Professional Qualifications</CardTitle>
+                <CardDescription>Manage your academic and professional certifications</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <form className="space-y-6">
+                  <div className="space-y-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="education">Education</Label>
+                      <Textarea
+                        id="education"
+                        placeholder="List your academic qualifications"
+                        className="min-h-[100px]"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="certifications">Professional Certifications</Label>
+                      <Textarea
+                        id="certifications"
+                        placeholder="List your professional certifications"
+                        className="min-h-[100px]"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="specialization">Areas of Specialization</Label>
+                      <Input
+                        id="specialization"
+                        placeholder="e.g., Advanced Mathematics, Physics"
+                      />
+                    </div>
+                  </div>
+                  <Button type="submit" className="bg-accentBlue hover:bg-accentBlue-600">
+                    Update Qualifications
+                  </Button>
+                </form>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="profile">
+            <Card>
+              <CardHeader>
+                <CardTitle>Personal Profile</CardTitle>
+                <CardDescription>Update your contact information</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <form className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <Label htmlFor="name">Full Name</Label>
+                      <Input id="name" defaultValue={user?.name} />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="email">Email</Label>
+                      <Input id="email" type="email" defaultValue={user?.email} />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="phone">Phone Number</Label>
+                      <Input id="phone" type="tel" />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="emergency">Emergency Contact</Label>
+                      <Input id="emergency" type="tel" />
+                    </div>
+                    <div className="space-y-2 md:col-span-2">
+                      <Label htmlFor="address">Residential Address</Label>
+                      <Textarea id="address" className="min-h-[80px]" />
+                    </div>
+                  </div>
+                  <Button type="submit" className="bg-accentBlue hover:bg-accentBlue-600">
+                    Save Changes
+                  </Button>
+                </form>
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
       </div>
     </PortalLayout>
   );

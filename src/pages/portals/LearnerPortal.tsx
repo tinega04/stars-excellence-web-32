@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
@@ -20,11 +19,15 @@ import {
   TableRow 
 } from "@/components/ui/table";
 import { ArrowRight, Download } from "lucide-react";
+import { useAuth } from '@/lib/auth';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 const LearnerPortal = () => {
+  const { user } = useAuth();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
   const { toast } = useToast();
+  const [activeTab, setActiveTab] = useState('results');
 
   const handleLogin = (username: string, password: string) => {
     // Mock authentication check
@@ -75,18 +78,15 @@ const LearnerPortal = () => {
   }
 
   // Mock data for the dashboard
-  const examResults = [
-    { subject: "Mathematics", score: 85, grade: "A", term: "Term 1", year: "2025" },
-    { subject: "English", score: 78, grade: "B+", term: "Term 1", year: "2025" },
-    { subject: "Science", score: 92, grade: "A", term: "Term 1", year: "2025" },
-    { subject: "Social Studies", score: 74, grade: "B", term: "Term 1", year: "2025" },
-    { subject: "Kiswahili", score: 80, grade: "A-", term: "Term 1", year: "2025" },
+  const mockExamResults = [
+    { subject: 'Mathematics', score: 85, grade: 'A', term: 'Term 1' },
+    { subject: 'English', score: 78, grade: 'B+', term: 'Term 1' },
+    { subject: 'Science', score: 92, grade: 'A', term: 'Term 1' },
   ];
   
-  const feeStatements = [
-    { term: "Term 1", year: "2025", amount: 45000, paid: 45000, balance: 0, status: "Paid", date: "2025-01-15" },
-    { term: "Term 2", year: "2025", amount: 45000, paid: 30000, balance: 15000, status: "Partial", date: "2025-05-10" },
-    { term: "Term 3", year: "2025", amount: 45000, paid: 0, balance: 45000, status: "Unpaid", date: "2025-09-05" }
+  const mockFeeStatements = [
+    { term: 'Term 1 2025', amount: 45000, paid: 45000, balance: 0, status: 'Paid' },
+    { term: 'Term 2 2025', amount: 45000, paid: 30000, balance: 15000, status: 'Partial' },
   ];
 
   return (
@@ -96,181 +96,129 @@ const LearnerPortal = () => {
       username={username}
     >
       <div className="max-w-5xl mx-auto">
-        <h1 className="text-2xl font-playfair font-bold text-darkBlue mb-6">Welcome, {username}</h1>
+        <h1 className="text-2xl font-playfair font-bold text-darkBlue mb-6">Welcome, {user?.name}</h1>
         
-        <DashboardSection title="Exam Results" description="View your academic performance by term">
-          <Tabs defaultValue="current">
-            <TabsList className="mb-6">
-              <TabsTrigger value="current">Current Term</TabsTrigger>
-              <TabsTrigger value="previous">Previous Terms</TabsTrigger>
-            </TabsList>
-            <TabsContent value="current">
-              <Table>
-                <TableCaption>Term 1, 2025 Examination Results</TableCaption>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Subject</TableHead>
-                    <TableHead className="text-right">Score</TableHead>
-                    <TableHead className="text-right">Grade</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {examResults.map((result, index) => (
-                    <TableRow key={index}>
-                      <TableCell className="font-medium">{result.subject}</TableCell>
-                      <TableCell className="text-right">{result.score}%</TableCell>
-                      <TableCell className="text-right">{result.grade}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-              <div className="flex justify-end mt-4">
-                <Button variant="outline" className="text-accentBlue border-accentBlue/30 hover:bg-accentBlue/10">
-                  <Download size={16} className="mr-2" /> Download Report
-                </Button>
-              </div>
-            </TabsContent>
-            <TabsContent value="previous">
-              <div className="text-center py-8 text-textGray">
-                <p>No previous term results available.</p>
-              </div>
-            </TabsContent>
-          </Tabs>
-        </DashboardSection>
-        
-        <DashboardSection title="Fee Statements" description="View your current and past fee information">
-          <Tabs defaultValue="current">
-            <TabsList className="mb-6">
-              <TabsTrigger value="current">Current Term</TabsTrigger>
-              <TabsTrigger value="history">Payment History</TabsTrigger>
-            </TabsList>
-            <TabsContent value="current">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Term/Year</TableHead>
-                    <TableHead className="text-right">Amount</TableHead>
-                    <TableHead className="text-right">Paid</TableHead>
-                    <TableHead className="text-right">Balance</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead className="text-right">Receipt</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {feeStatements.map((statement, index) => (
-                    <TableRow key={index}>
-                      <TableCell className="font-medium">{statement.term}, {statement.year}</TableCell>
-                      <TableCell className="text-right">Ksh {statement.amount.toLocaleString()}</TableCell>
-                      <TableCell className="text-right">Ksh {statement.paid.toLocaleString()}</TableCell>
-                      <TableCell className="text-right">Ksh {statement.balance.toLocaleString()}</TableCell>
-                      <TableCell>
-                        <span className={`px-2 py-1 rounded-full text-xs ${
-                          statement.status === "Paid" 
-                            ? "bg-green-100 text-green-800" 
-                            : statement.status === "Partial"
-                            ? "bg-yellow-100 text-yellow-800"
-                            : "bg-red-100 text-red-800"
-                        }`}>
-                          {statement.status}
-                        </span>
-                      </TableCell>
-                      <TableCell className="text-right">
-                        {statement.status !== "Unpaid" && (
-                          <Button variant="ghost" size="sm" className="text-accentBlue hover:text-accentBlue-600 hover:bg-accentBlue/10 h-auto p-1">
-                            <Download size={16} />
-                          </Button>
-                        )}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TabsContent>
-            <TabsContent value="history">
-              <div className="text-center py-8 text-textGray">
-                <p>Payment history from previous terms will be shown here.</p>
-              </div>
-            </TabsContent>
-          </Tabs>
-        </DashboardSection>
-        
-        <DashboardSection title="Personal Profile" description="View and update your personal information">
-          <div className="grid md:grid-cols-2 gap-6">
-            <div>
-              <h3 className="font-medium text-darkBlue mb-4">Personal Information</h3>
-              <div className="space-y-4">
-                <div className="grid grid-cols-1 gap-2">
-                  <Label htmlFor="name">Full Name</Label>
-                  <Input id="name" value="John Doe" />
+        <Tabs defaultValue="results" className="space-y-6" onValueChange={setActiveTab}>
+          <TabsList>
+            <TabsTrigger value="results">Exam Results</TabsTrigger>
+            <TabsTrigger value="fees">Fee Statements</TabsTrigger>
+            <TabsTrigger value="profile">Profile</TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="results">
+            <Card>
+              <CardHeader>
+                <CardTitle>Academic Performance</CardTitle>
+                <CardDescription>View your exam results and academic progress</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="overflow-x-auto">
+                  <table className="w-full">
+                    <thead>
+                      <tr className="border-b">
+                        <th className="text-left py-3 px-4">Subject</th>
+                        <th className="text-left py-3 px-4">Score</th>
+                        <th className="text-left py-3 px-4">Grade</th>
+                        <th className="text-left py-3 px-4">Term</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {mockExamResults.map((result, index) => (
+                        <tr key={index} className="border-b">
+                          <td className="py-3 px-4">{result.subject}</td>
+                          <td className="py-3 px-4">{result.score}%</td>
+                          <td className="py-3 px-4">{result.grade}</td>
+                          <td className="py-3 px-4">{result.term}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
-                
-                <div className="grid grid-cols-1 gap-2">
-                  <Label htmlFor="dob">Date of Birth</Label>
-                  <Input id="dob" value="2010-05-15" type="date" />
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="fees">
+            <Card>
+              <CardHeader>
+                <CardTitle>Fee Statements</CardTitle>
+                <CardDescription>View your fee statements and payment history</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="overflow-x-auto">
+                  <table className="w-full">
+                    <thead>
+                      <tr className="border-b">
+                        <th className="text-left py-3 px-4">Term</th>
+                        <th className="text-left py-3 px-4">Amount</th>
+                        <th className="text-left py-3 px-4">Paid</th>
+                        <th className="text-left py-3 px-4">Balance</th>
+                        <th className="text-left py-3 px-4">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {mockFeeStatements.map((statement, index) => (
+                        <tr key={index} className="border-b">
+                          <td className="py-3 px-4">{statement.term}</td>
+                          <td className="py-3 px-4">KES {statement.amount.toLocaleString()}</td>
+                          <td className="py-3 px-4">KES {statement.paid.toLocaleString()}</td>
+                          <td className="py-3 px-4">KES {statement.balance.toLocaleString()}</td>
+                          <td className="py-3 px-4">
+                            <span className={`inline-block px-2 py-1 rounded text-sm ${
+                              statement.status === 'Paid' 
+                                ? 'bg-green-100 text-green-800'
+                                : 'bg-yellow-100 text-yellow-800'
+                            }`}>
+                              {statement.status}
+                            </span>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
-                
-                <div className="grid grid-cols-1 gap-2">
-                  <Label htmlFor="class">Class/Grade</Label>
-                  <Input id="class" value="Grade 8" disabled />
-                </div>
-                
-                <div className="grid grid-cols-1 gap-2">
-                  <Label htmlFor="county">County</Label>
-                  <Input id="county" value="Nairobi" />
-                </div>
-              </div>
-            </div>
-            
-            <div>
-              <h3 className="font-medium text-darkBlue mb-4">Contact Information</h3>
-              <div className="space-y-4">
-                <div className="grid grid-cols-1 gap-2">
-                  <Label htmlFor="email">Email Address</Label>
-                  <Input id="email" value="student@example.com" />
-                </div>
-                
-                <div className="grid grid-cols-1 gap-2">
-                  <Label htmlFor="phone">Phone Number</Label>
-                  <Input id="phone" value="+254 712 345 678" />
-                </div>
-                
-                <div className="grid grid-cols-1 gap-2">
-                  <Label htmlFor="interests">Extracurricular Interests</Label>
-                  <Input id="interests" value="Soccer, Chess, Drama" />
-                </div>
-                
-                <Button className="bg-accentBlue hover:bg-accentBlue-600 mt-2 w-full sm:w-auto">
-                  Update Information
-                </Button>
-              </div>
-            </div>
-          </div>
-        </DashboardSection>
-        
-        <DashboardSection title="Password Management" description="Reset your account password">
-          <div className="max-w-md">
-            <div className="space-y-4">
-              <div className="grid grid-cols-1 gap-2">
-                <Label htmlFor="current-password">Current Password</Label>
-                <Input id="current-password" type="password" />
-              </div>
-              
-              <div className="grid grid-cols-1 gap-2">
-                <Label htmlFor="new-password">New Password</Label>
-                <Input id="new-password" type="password" />
-              </div>
-              
-              <div className="grid grid-cols-1 gap-2">
-                <Label htmlFor="confirm-password">Confirm New Password</Label>
-                <Input id="confirm-password" type="password" />
-              </div>
-              
-              <Button className="bg-accentBlue hover:bg-accentBlue-600">
-                Reset Password
-              </Button>
-            </div>
-          </div>
-        </DashboardSection>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="profile">
+            <Card>
+              <CardHeader>
+                <CardTitle>Personal Profile</CardTitle>
+                <CardDescription>Update your personal information</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <form className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <Label htmlFor="name">Full Name</Label>
+                      <Input id="name" defaultValue={user?.name} />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="email">Email</Label>
+                      <Input id="email" type="email" defaultValue={user?.email} />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="dob">Date of Birth</Label>
+                      <Input id="dob" type="date" />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="phone">Phone Number</Label>
+                      <Input id="phone" type="tel" />
+                    </div>
+                    <div className="space-y-2 md:col-span-2">
+                      <Label htmlFor="interests">Interests & Activities</Label>
+                      <Input id="interests" placeholder="e.g., Sports, Music, Drama" />
+                    </div>
+                  </div>
+                  <Button type="submit" className="bg-accentBlue hover:bg-accentBlue-600">
+                    Save Changes
+                  </Button>
+                </form>
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
       </div>
     </PortalLayout>
   );
